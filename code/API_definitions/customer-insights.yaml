@@ -1,0 +1,378 @@
+openapi: 3.0.3
+info:
+  description: |-
+    Provides a risk index based on the individual's telco profile.
+
+    # Relevant Definitions and concepts
+
+    * **Telco Credit Scoring**: risk classification based on the individual's telco profile, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
+
+        Two different scales are considered for the Telco Credit Scoring:
+
+        * **GaugeMetric**: Telco Credit Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
+          
+                  800-850: Exceptional, very low risk.
+
+                  740-799: Very Good, low risk.
+
+                  670-739: Good, moderate risk.
+
+                  580-669: Fair, higher risk.
+
+                  300-579: Poor, very high risk.
+
+
+        * **VeritasIndex**: Telco Credit Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
+
+                  0-1      AAA
+                  2-3      AA
+                  4-5      A
+                  6-7      BBB
+                  8-9      BB
+                  10-11    B
+                  12-13    CCC
+                  14-15    CC
+                  16-17    C
+                  18-19    DDD
+
+    # API Functionality
+       
+    This API allows to retrieve the Telco Credit Scoring information of a user within the operator.
+
+    # Resources and Operations overview
+
+    The API provides the following endpoint:
+      
+      - An operation to retrieve Telco Credit Scoring information.        
+ 
+    # Authorization and authentication
+
+    The "Camara Security and Interoperability Profile" provides details on how a client requests an access token. Please refer to Identify and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the Profile.
+
+    Which specific authorization flows are to be used will be determined during onboarding process, happening between the API Client and the Telco Operator exposing the API, taking into account the declared purpose for accessing the API, while also being subject to the prevailing legal framework dictated by local legislation.
+
+    It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
+
+    **NOTE(TO BE DELETED)**: As this API can work in both 2-legged and 3-legged we will have to consider Commonalities PR#324 template
+
+    # Further info and support
+
+    (FAQs will be added in a later version of the documentation)
+  version: wip
+  title: Customer Insights
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Product documentation at Camara
+  url: https://github.com/camaraproject/CustomerInsights
+x-camara-commonalities: wip
+servers:
+  - url: "{apiRoot}/customer-insights/vwip"
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root, defined by the service provider
+tags:
+  - name: Telco Credit Scoring 
+    description: Operations to retrieve Telco Credit Scoring information.
+paths:
+  /credit-scoring/retrieve:
+    post:
+      security:
+        - openId:
+            - customer-insights:credit-scoring:read
+      tags:
+        - Index
+      summary: Retrieves Telco Credit Scoring information
+      description: >-
+        Retrieves Telco Credit Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
+        
+        It also allows to select the type of the Telco Credit Scoring scale measurement.
+      operationId: retrieveTelcoCreditScoring
+      x-fp-pi-scopes:
+        - telco-index:read
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelcoCreditScoringRequest'
+            examples:
+              INPUT_GAUGE_METRIC:
+                summary: Gauge Metric
+                description: Gauge Metric score request, with no additional information. Default three-legged access mode for Gauge Metric
+                value:
+                  telcoCreditScoringType: gaugeMetric
+              INPUT_VERITAS_INDEX:
+                summary: Veritas Index
+                description: Veritas Index score request, with no additional information. Default three-legged access mode for Veritas index
+                value:
+                  telcoCreditScoringType: veritasIndex
+              INPUT_GAUGE_METRIC_PHONENUMBER:
+                summary: Gauge Metric with phoneNumber
+                description: Gauge Metric score request, with phoneNumber. Default two-legged access mode for Gauge Metric
+                value:
+                  phoneNumber: "+556253423432"
+                  telcoCreditScoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_PHONENUMBER:
+                summary: Veritas Index with phoneNumber
+                description: Veritas Index score request, with phoneNumber. Default two-legged access mode for Veritas index
+                value:
+                  phoneNumber: "+556253423432"
+                  telcoCreditScoringType: veritasIndex
+              INPUT_GAUGE_METRIC_ID_DOCUMENT:
+                summary: Gauge Metric with idDocument
+                description: Gauge Metric score request, with idDocument.
+                value:
+                  idDocument: "987654321"
+                  telcoCreditScoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_ID_DOCUMENT:
+                summary: Veritas Index with idDocument
+                description: Veritas Index score request, with idDocument.
+                value:
+                  idDocument: "987654321"
+                  telcoCreditScoringType: veritasIndex
+              INPUT_GAUGE_METRIC_PHONENUMBER_ID_DOCUMENT:
+                summary: Gauge Metric with phoneNumber and idDocument
+                description: Gauge Metric score request, with phoneNumber and idDocument.
+                value:
+                  idDocument: "987654321"
+                  phoneNumber: "+556253423432"
+                  telcoCreditScoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_PHONENUMBER_ID_DOCUMENT:
+                summary: Veritas Index with phoneNumber and idDocument
+                description: Veritas Index score request, with phoneNumber and idDocument.
+                value:
+                  idDocument: "987654321"
+                  phoneNumber: "+556253423432"
+                  telcoCreditScoringType: veritasIndex
+      responses:
+        '200':
+          description: Telco Credit Scoring result.
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelcoCreditScoringResponse'
+              examples:
+                GAUGE_METRIC:
+                  summary: Gauge Metric Response
+                  description: Telco Credit Scoring with Gauge Metric index
+                  value:
+                    telcoCreditScoringType: gaugeMetric
+                    telcoCreditScoringValue: 600
+                VERITAS_INDEX:
+                  summary: Veritas Index Response
+                  description: Telco Credit Scoring with Veritas Index
+                  value:
+                    telcoCreditScoringType: veritasIndex
+                    telcoCreditScoringValue: 4
+        '400':
+          $ref: '#/components/responses/Generic400'
+        '401':
+          $ref: '#/components/responses/Generic401'
+        '403':
+          $ref: '#/components/responses/Generic403'
+        '404':
+          $ref: '#/components/responses/Generic404'
+        '422':
+          $ref: '#/components/responses/Generic422'
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: string
+  schemas:
+    TelcoCreditScoringRequest:
+      type: object      
+      properties:
+        idDocument:          
+          type: string
+          description: |-
+           Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
+        phoneNumber:
+          type: string
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+          pattern: '^\+[1-9][0-9]{4,14}$'
+        telcoCreditScoringType:
+          type: string
+          description: |-
+            Telco Credit Scoring type, i.e.: scale. API Client may use this field to indicate the Telco Credit Scoring in one of the defined scales; if this field is not informed, the API will return the Telco Credit Scoring in the scale configured by default in the system.
+
+            Allowed values are:
+
+            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
+            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+          enum:
+            - gaugeMetric
+            - veritasIndex
+    TelcoCreditScoringResponse:
+      type: object
+      description: Credit Scoring information based on the individual's telco profile
+      required:
+        - telcoCreditScoringType
+        - telcoCreditScoringValue
+      properties:
+        telcoCreditScoringType:
+          type: string
+          description: |-
+            Telco Credit Scoring measurement system.
+            
+            Allowed values are:
+
+            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
+            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)        
+          enum:
+            - gaugeMetric
+            - veritasIndex
+        telcoCreditScoringValue:
+          type: integer
+          description: Result of the Telco Credit Scoring analysis expressed in the measure indicated in the `telcoCreditScoringType` field.
+    ErrorInfo:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code returned along with this error response.
+        code:
+          type: string
+          description: Code given to this error.
+        message:
+          type: string
+          description: Detailed error description.
+  responses:
+    Generic400:
+      description: |-
+        Problem with the client request.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInfo"
+          examples:
+            InvalidArgument:
+              description:  Invalid Argument. Generic Syntax Exception
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param
+    Generic401:
+      description: Unauthorized
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInfo"
+          examples:
+            GENERIC_401_UNAUTHENTICATED:
+              description: Request cannot be authenticated
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials.
+            GENERIC_401_AUTHENTICATION_REQUIRED:
+              description: New authentication is needed, authentication is no longer valid
+              value:
+                status: 401
+                code: AUTHENTICATION_REQUIRED
+                message: New authentication is required.  
+    Generic403:
+      description: Forbidden
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInfo"
+          examples:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action.
+    Generic404:
+      description: |-
+        Not found
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInfo"
+          examples:
+            GENERIC_404_NOT_FOUND:
+              description: Resource is not found
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: The specified resource is not found.
+    Generic422:
+      description: |-
+       Unprocessable Content
+
+       In addition to regular scenario of Unprocessable Content, another scenarios may exist.
+
+        - Provided `telcoCreditScoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter telcoCreditScoringType is not supported."`)
+        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
+        - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
+        - Required `idDocument` field and it is not provided. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation."`)
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInfo"
+          examples:
+            NotSupportedTelcoCreditScoringTypeValue:
+              description: Error when `telcoCreditScoringType` value is not supported.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
+                message: Indicated parameter `telcoCreditScoringType` is not supported.
+            IdentifiersMismatch:
+              description: Error when provided `idDocument` is not consistent with the phone number.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                message: Provided `idDocument` is not consistent with the phone number.
+            IdDocumentNotSupported:
+              description: Error when `idDocument` field is not supported
+              value:
+                status: 400
+                code: CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
+                message: Indicated parameter `idDocument` is not supported
+            IdDocumentRequired:
+              description: Error when `idDocument` field is not provided and it is required.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED
+                message: The `idDocument` is required to perform the properties validation.
