@@ -28,8 +28,8 @@ The repository has no (pre)releases yet, work in progress is within the main bra
 
 ## Contributing
 * Meetings are held virtually <!-- for new API families request a meeting link from the LF admin team or replace the information with the existing meeting information (of the API family) -->
-    * Schedule: !! tbd
-    * [Registration / Join]() !! Update this link with your meeting registration/join link
+    * Schedule: Bi-Weekly on Thursdays at 14:00 UTC
+    * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/95737002367?password=034d9b74-a944-4def-ae30-0f93802430a5)
     * Minutes: Access [[meeting minutes]](https://lf-camaraproject.atlassian.net/wiki/x/XIBuAQ)
 * Mailing List
     <!-- Note: the $sub-project-mailinglistname$ is either already existing or will be created by the CAMARA Admin Team  -->
