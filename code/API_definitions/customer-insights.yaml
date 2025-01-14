@@ -1,15 +1,15 @@
 openapi: 3.0.3
 info:
   description: |-
-    Provides a risk index based on the individual's telco profile.
+    Provides a risk index based on the individual's profile owned by a Telco Operator.
 
     # Relevant Definitions and concepts
 
-    * **Telco Credit Scoring**: risk classification based on the individual's telco profile, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
+    * **Credit Scoring**: risk classification based on the individual's profile owned by a Telco Operator, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
 
-        Two different scales are considered for the Telco Credit Scoring:
+        Two different scales are considered for the Credit Scoring:
 
-        * **GaugeMetric**: Telco Credit Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
+        * **GaugeMetric**: Credit Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
           
                   800-850: Exceptional, very low risk.
 
@@ -22,7 +22,7 @@ info:
                   300-579: Poor, very high risk.
 
 
-        * **VeritasIndex**: Telco Credit Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
+        * **VeritasIndex**: Credit Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
 
                   0-1      AAA
                   2-3      AA
@@ -37,13 +37,13 @@ info:
 
     # API Functionality
        
-    This API allows to retrieve the Telco Credit Scoring information of a user within the operator.
+    This API allows to retrieve the Credit Scoring information of a user within the operator.
 
     # Resources and Operations overview
 
     The API provides the following endpoint:
       
-      - An operation to retrieve Telco Credit Scoring information.        
+      - An operation to retrieve Credit Scoring information.        
  
     # Authorization and authentication
 
@@ -109,56 +109,56 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelcoCreditScoringRequest'
+              $ref: '#/components/schemas/CreditScoringRequest'
             examples:
               INPUT_GAUGE_METRIC:
                 summary: Gauge Metric
                 description: Gauge Metric score request, with no additional information. Default three-legged access mode for Gauge Metric
                 value:
-                  telcoCreditScoringType: gaugeMetric
+                  scoringType: gaugeMetric
               INPUT_VERITAS_INDEX:
                 summary: Veritas Index
                 description: Veritas Index score request, with no additional information. Default three-legged access mode for Veritas index
                 value:
-                  telcoCreditScoringType: veritasIndex
+                  scoringType: veritasIndex
               INPUT_GAUGE_METRIC_PHONENUMBER:
                 summary: Gauge Metric with phoneNumber
                 description: Gauge Metric score request, with phoneNumber. Default two-legged access mode for Gauge Metric
                 value:
                   phoneNumber: "+556253423432"
-                  telcoCreditScoringType: gaugeMetric
+                  scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_PHONENUMBER:
                 summary: Veritas Index with phoneNumber
                 description: Veritas Index score request, with phoneNumber. Default two-legged access mode for Veritas index
                 value:
                   phoneNumber: "+556253423432"
-                  telcoCreditScoringType: veritasIndex
+                  scoringType: veritasIndex
               INPUT_GAUGE_METRIC_ID_DOCUMENT:
                 summary: Gauge Metric with idDocument
                 description: Gauge Metric score request, with idDocument.
                 value:
                   idDocument: "987654321"
-                  telcoCreditScoringType: gaugeMetric
+                  scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_ID_DOCUMENT:
                 summary: Veritas Index with idDocument
                 description: Veritas Index score request, with idDocument.
                 value:
                   idDocument: "987654321"
-                  telcoCreditScoringType: veritasIndex
+                  scoringType: veritasIndex
               INPUT_GAUGE_METRIC_PHONENUMBER_ID_DOCUMENT:
                 summary: Gauge Metric with phoneNumber and idDocument
                 description: Gauge Metric score request, with phoneNumber and idDocument.
                 value:
                   idDocument: "987654321"
                   phoneNumber: "+556253423432"
-                  telcoCreditScoringType: gaugeMetric
+                  scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_PHONENUMBER_ID_DOCUMENT:
                 summary: Veritas Index with phoneNumber and idDocument
                 description: Veritas Index score request, with phoneNumber and idDocument.
                 value:
                   idDocument: "987654321"
                   phoneNumber: "+556253423432"
-                  telcoCreditScoringType: veritasIndex
+                  scoringType: veritasIndex
       responses:
         '200':
           description: Credit Scoring result.
@@ -168,20 +168,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TelcoCreditScoringResponse'
+                $ref: '#/components/schemas/CreditScoringResponse'
               examples:
                 GAUGE_METRIC:
                   summary: Gauge Metric Response
-                  description: Telco Credit Scoring with Gauge Metric index
+                  description: Credit Scoring with Gauge Metric index
                   value:
-                    telcoCreditScoringType: gaugeMetric
-                    telcoCreditScoringValue: 600
+                    scoringType: gaugeMetric
+                    scoringValue: 600
                 VERITAS_INDEX:
                   summary: Veritas Index Response
-                  description: Telco Credit Scoring with Veritas Index
+                  description: Credit Scoring with Veritas Index
                   value:
-                    telcoCreditScoringType: veritasIndex
-                    telcoCreditScoringValue: 4
+                    scoringType: veritasIndex
+                    scoringValue: 4
         '400':
           $ref: '#/components/responses/Generic400'
         '401':
@@ -212,7 +212,7 @@ components:
       schema:
         type: string
   schemas:
-    TelcoCreditScoringRequest:
+    CreditScoringRequest:
       type: object      
       properties:
         idDocument:          
@@ -223,10 +223,10 @@ components:
           type: string
           description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
           pattern: '^\+[1-9][0-9]{4,14}$'
-        telcoCreditScoringType:
+        scoringType:
           type: string
           description: |-
-            Telco Credit Scoring type, i.e.: scale. API Client may use this field to indicate the Telco Credit Scoring in one of the defined scales; if this field is not informed, the API will return the Telco Credit Scoring in the scale configured by default in the system.
+            Credit Scoring type, i.e.: scale. API Client may use this field to indicate the Credit Scoring in one of the defined scales; if this field is not informed, the API will return the Credit Scoring in the scale configured by default in the system.
 
             Allowed values are:
 
@@ -235,17 +235,17 @@ components:
           enum:
             - gaugeMetric
             - veritasIndex
-    TelcoCreditScoringResponse:
+    CreditScoringResponse:
       type: object
-      description: Credit Scoring information based on the individual's telco profile
+      description: Credit Scoring information based on the individual's profile owned by a Telco Operator.
       required:
-        - telcoCreditScoringType
-        - telcoCreditScoringValue
+        - scoringType
+        - scoringValue
       properties:
-        telcoCreditScoringType:
+        scoringType:
           type: string
           description: |-
-            Telco Credit Scoring measurement system.
+            Credit Scoring measurement system.
             
             Allowed values are:
 
@@ -254,9 +254,9 @@ components:
           enum:
             - gaugeMetric
             - veritasIndex
-        telcoCreditScoringValue:
+        scoringValue:
           type: integer
-          description: Result of the Telco Credit Scoring analysis expressed in the measure indicated in the `telcoCreditScoringType` field.
+          description: Result of the Credit Scoring analysis expressed in the measure indicated in the `scoringType` field.
     ErrorInfo:
       type: object
       required:
@@ -391,7 +391,7 @@ components:
         - Service not applicable for the provided identifier ("code": "SERVICE_NOT_APPLICABLE","message": "The service is not available for the provided identifier.")
         - An identifier is not included in the request and the device or phone number identification cannot be derived from the 3-legged access token ("code": "MISSING_IDENTIFIER","message": "The phone number cannot be identified.")
         - An explicit identifier is provided when a device or phone number has already been identified from the access token ("code": "UNNECESSARY_IDENTIFIER","message": "The phone number is already identified by the access token.")
-        - Provided `telcoCreditScoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter telcoCreditScoringType is not supported."`)
+        - Provided `scoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter scoringType is not supported."`)
         - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
         - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
         - Required `idDocument` field and it is not provided. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation."`)
@@ -436,12 +436,12 @@ components:
                 status: 422
                 code: UNNECESSARY_IDENTIFIER
                 message: The phone number is already identified by the access token.
-            GENERIC_422_NOT_SUPPORTED_TELCO_CREDIT_SCORING_TYPE_VALUE:
-              description: Error when `telcoCreditScoringType` value is not supported.
+            GENERIC_422_NOT_SUPPORTED_CREDIT_SCORING_TYPE_VALUE:
+              description: Error when `scoringType` value is not supported.
               value:
                 status: 422
                 code: CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
-                message: Indicated parameter `telcoCreditScoringType` is not supported.
+                message: Indicated parameter `scoringType` is not supported.
             GENERIC_422_IDENTIFIERS_MISMATCH:
               description: Error when provided `idDocument` is not consistent with the phone number.
               value:
