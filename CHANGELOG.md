@@ -40,7 +40,7 @@ The API definition(s) are based on
 * Generate initial API proposal in https://github.com/camaraproject/CustomerInsights/pull/12
 * Basic Test cases definition in https://github.com/camaraproject/CustomerInsights/pull/19
 * Generate API Readiness Checklist in https://github.com/camaraproject/CustomerInsights/pull/20
-* Generate `CHANGELOG.md` in xxx
+* Generate `CHANGELOG.md` in https://github.com/camaraproject/CustomerInsights/pull/21
 
 ### Changed
 * Including CodeOwners and Maintainers in https://github.com/camaraproject/CustomerInsights/pull/7
