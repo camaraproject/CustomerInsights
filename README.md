@@ -12,8 +12,9 @@ Repository to describe, develop, document, and test the CustomerInsights API(s)
 ## Scope
 
 * Service APIs for “CustomerInsights”
-* The API provides the customer with the ability to:  
-  * §Short API scope description§
+* The API provides the customer with the ability to:
+  * Provides a risk index (a.k.a. Credit Scoring) based on the individual's profile owned by a Telco Operator.
+  * So far two scoring scales are defined within the current proposal (GaugeMetric, VeritasIndex).
 * Describe, develop, document, and test the APIs
 * Started: October 2024
 
