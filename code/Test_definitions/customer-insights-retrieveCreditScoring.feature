@@ -229,6 +229,7 @@ Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveCreditScoring
     And the response property "$.message" contains a user friendly text
 
   # When the service is only offered to certain type of subscriptions, e.g. IoT, , B2C, etc
+  # Specifically, for Customer Insights API this will be the case of phone numbers of B2B customers
   @retrieve_credit_scoring_C02.05_phone_number_not_supported
   Scenario: Service not available for the phone number
     Given that the service is not available for all phone numbers commercialized by the operator
