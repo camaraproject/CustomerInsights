@@ -78,7 +78,7 @@ info:
 externalDocs:
   description: Product documentation at Camara
   url: https://github.com/camaraproject/CustomerInsights
-x-camara-commonalities: 0.5.0
+x-camara-commonalities: 0.5
 servers:
   - url: "{apiRoot}/customer-insights/v0.1rc1"
     variables:
@@ -204,6 +204,7 @@ components:
       description: Correlation id for the different services
       schema:
         type: string
+        pattern: ^[a-zA-Z0-9-]{1,55}$
   parameters:
     x-correlator:
       name: x-correlator
@@ -211,6 +212,8 @@ components:
       description: Correlation id for the different services
       schema:
         type: string
+        pattern: ^[a-zA-Z0-9-]{1,55}$
+        example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
   schemas:
     CreditScoringRequest:
       type: object      
