@@ -5,11 +5,11 @@ info:
 
     # Relevant Definitions and concepts
 
-    * **Credit Scoring**: risk classification based on the individual's profile owned by a Telco Operator, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
+    * **Scoring**: risk classification based on the individual's profile owned by a Telco Operator, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
 
-        Two different scales are considered for the Credit Scoring:
+        Two different scales are considered for the Scoring:
 
-        * **GaugeMetric**: Credit Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
+        * **GaugeMetric**: Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
           
                   800-850: Exceptional, very low risk.
 
@@ -22,7 +22,7 @@ info:
                   300-579: Poor, very high risk.
 
 
-        * **VeritasIndex**: Credit Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
+        * **VeritasIndex**: Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
 
                   0-1      AAA
                   2-3      AA
@@ -37,13 +37,13 @@ info:
 
     # API Functionality
        
-    This API allows to retrieve the Credit Scoring information of a user within the operator.
+    This API allows to retrieve the Scoring information of a user within the operator.
 
     # Resources and Operations overview
 
     The API provides the following endpoint:
       
-      - An operation to retrieve Credit Scoring information.        
+      - An operation to retrieve Scoring information.        
  
     # Authorization and authentication
 
@@ -86,22 +86,22 @@ servers:
         default: http://localhost:9091
         description: API root, defined by the service provider
 tags:
-  - name: Credit Scoring 
-    description: Operations to retrieve Credit Scoring information.
+  - name: Scoring 
+    description: Operations to retrieve Scoring information.
 paths:
-  /credit-scoring/retrieve:
+  /scoring/retrieve:
     post:
       security:
         - openId:
-            - customer-insights:credit-scoring:read
+            - customer-insights:scoring:read
       tags:
-        - Credit Scoring
-      summary: Retrieves Credit Scoring information
+        - Scoring
+      summary: Retrieves Scoring information
       description: >-
-        Retrieves Credit Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
+        Retrieves Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
         
-        It also allows to select the type of the Credit Scoring scale measurement.
-      operationId: retrieveCreditScoring
+        It also allows to select the type of the Scoring scale measurement.
+      operationId: retrieveScoring
       parameters:
         - $ref: '#/components/parameters/x-correlator'
       requestBody:
@@ -109,7 +109,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreditScoringRequest'
+              $ref: '#/components/schemas/ScoringRequest'
             examples:
               INPUT_GAUGE_METRIC:
                 summary: Gauge Metric
@@ -161,24 +161,24 @@ paths:
                   scoringType: veritasIndex
       responses:
         '200':
-          description: Credit Scoring result.
+          description: Scoring result.
           headers:
             x-correlator:
               $ref: '#/components/headers/x-correlator'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditScoringResponse'
+                $ref: '#/components/schemas/ScoringResponse'
               examples:
                 GAUGE_METRIC:
                   summary: Gauge Metric Response
-                  description: Credit Scoring with Gauge Metric index
+                  description: Scoring with Gauge Metric index
                   value:
                     scoringType: gaugeMetric
                     scoringValue: 600
                 VERITAS_INDEX:
                   summary: Veritas Index Response
-                  description: Credit Scoring with Veritas Index
+                  description: Scoring with Veritas Index
                   value:
                     scoringType: veritasIndex
                     scoringValue: 4
@@ -215,7 +215,7 @@ components:
         pattern: ^[a-zA-Z0-9-]{0,55}$
         example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
   schemas:
-    CreditScoringRequest:
+    ScoringRequest:
       type: object      
       properties:
         idDocument:          
@@ -229,7 +229,7 @@ components:
         scoringType:
           type: string
           description: |-
-            Credit Scoring type, i.e.: scale. API Client may use this field to indicate the Credit Scoring in one of the defined scales; if this field is not informed, the API will return the Credit Scoring in the scale configured by default in the system.
+            Scoring type, i.e.: scale. API Client may use this field to indicate the Scoring in one of the defined scales; if this field is not informed, the API will return the Scoring in the scale configured by default in the system.
 
             Allowed values are:
 
@@ -238,9 +238,9 @@ components:
           enum:
             - gaugeMetric
             - veritasIndex
-    CreditScoringResponse:
+    ScoringResponse:
       type: object
-      description: Credit Scoring information based on the individual's profile owned by a Telco Operator.
+      description: Scoring information based on the individual's profile owned by a Telco Operator.
       required:
         - scoringType
         - scoringValue
@@ -248,7 +248,7 @@ components:
         scoringType:
           type: string
           description: |-
-            Credit Scoring measurement system.
+            Scoring measurement system.
             
             Allowed values are:
 
@@ -259,7 +259,7 @@ components:
             - veritasIndex
         scoringValue:
           type: integer
-          description: Result of the Credit Scoring analysis expressed in the measure indicated in the `scoringType` field.
+          description: Result of the Scoring analysis expressed in the measure indicated in the `scoringType` field.
     ErrorInfo:
       type: object
       required:
@@ -439,7 +439,7 @@ components:
                 status: 422
                 code: UNNECESSARY_IDENTIFIER
                 message: The phone number is already identified by the access token.
-            GENERIC_422_NOT_SUPPORTED_CREDIT_SCORING_TYPE_VALUE:
+            GENERIC_422_NOT_SUPPORTED_SCORING_TYPE_VALUE:
               description: Error when `scoringType` value is not supported.
               value:
                 status: 422
