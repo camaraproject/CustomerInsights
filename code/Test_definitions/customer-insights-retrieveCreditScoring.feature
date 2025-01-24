@@ -7,10 +7,10 @@ Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveCreditScoring
   # Testing assets:
   # * A phone number whose credit scoring can be obtained
   #
-  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml, version 0.1.0
+  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml, version 0.1.0-rc.1
 
   Background: Common createPayment setup
-    Given the resource "/customer-insights/v0.1/credit-scoring/retrieve"
+    Given the resource "/customer-insights/v0.1rc1/credit-scoring/retrieve"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" is set to a UUID value
@@ -209,7 +209,7 @@ Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveCreditScoring
     And the response property "$.message" contains a user friendly text
 
   @retrieve_credit_scoring_C02.03_unnecessary_phone_number
-  Scenario: Phone number not to included when can be deducted from the access token
+  Scenario: Phone number not to be included when it can be deduced from the access token
     Given the header "Authorization" is set to a valid access token identifying a phone number
     And the request body property "$.phoneNumber" is set to a valid phone number
     When the HTTP "POST" request is sent
@@ -220,7 +220,7 @@ Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveCreditScoring
 
   @retrieve_credit_scoring_C02.04_missing_phone_number
   Scenario: Phone number not included and cannot be deducted from the access token
-    Given the header "Authorization" is set to a valid access which does not identify a single phone number
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
     And the request body property "$.phoneNumber" is not included
     When the HTTP "POST" request is sent
     Then the response status code is 422
