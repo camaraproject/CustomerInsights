@@ -20,7 +20,7 @@ This release contains the definition and documentation of
 * Customer Insights v0.1.0-rc.1
 
 The API definition(s) are based on
-* Commonalities v0.5.0-alpha.1
+* Commonalities v0.5.0-rc.1
 * Identity and Consent Management v0.3.0-alpha.1
 
 ## Customer Insights v0.1.0-rc.1
@@ -28,7 +28,7 @@ The API definition(s) are based on
 **Customer Insights v0.1.0-rc.1 is the first release-candidate version for v0.1.0 of the Customer Insights API.**
 - **This version defines a new API:**
   - Initial version covering the following functionality and related endpoints:
-    - New endpoint `createRefund`, to retrieve the Credit Scoring information of a user within the operator
+    - New endpoint `retrieveCreditScoring`, to retrieve the Credit Scoring information of a user within the operator
 
 - API definition **with inline documentation**:
   - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r1.1/code/API_definitions/customer-insights.yaml&nocors)
