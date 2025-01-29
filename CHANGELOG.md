@@ -43,9 +43,7 @@ The API definition(s) are based on
 * Generate `CHANGELOG.md` in https://github.com/camaraproject/CustomerInsights/pull/21
 
 ### Changed
-* Including CodeOwners and Maintainers in https://github.com/camaraproject/CustomerInsights/pull/7
-* Update `README.md` mailing list and meeting minutes link in https://github.com/camaraproject/CustomerInsights/pull/6
-* Update `README.md` with meeting information in https://github.com/camaraproject/CustomerInsights/pull/13
+* N/A
 
 ### Fixed
 * N/A
