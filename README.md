@@ -28,7 +28,7 @@ Repository to describe, develop, document, and test the CustomerInsights API(s)
 * Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. **For best results, use the latest available release**.
 
 * **The pre-release [r1.1 - rc](https://github.com/camaraproject/CustomerInsights/blob/main/CHANGELOG.md#r1.1---rc) for the Customer Insights APIs Family is available.**
-<br>This is a release candidate. Until the public release there are bug fixes to be expected. The release candidate is suitable for implementors, but it is not recommended to use the API with customers in productive environments.
+<br>This is a release candidate version of the API. Until the public release there are bug fixes to be expected. The release candidate is suitable for implementors, but it is not recommended to use the API with customers in productive environments.
 
 * The release **r1.1 - rc** is available in [r1.1](https://github.com/camaraproject/CustomerInsights/tree/r1.1), and includes the following APIs:
 - API name: Customer Insights - API Definition v0.1.0-rc.1 with inline documentation:
