@@ -2,7 +2,7 @@
 
 Checklist for Customer Insights v0.1.0-rc.1 in r1.1
 
-| Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Comments |
+| Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Reference Information |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
 |  1 | API definition                               |   M   |         M         |    M    |    M   |  Y   | [link](/code/API_definitions/customer-insights.yaml) |
 |  2 | Design guidelines from Commonalities applied |   O   |         M         |    M    |    M   |  Y   | [r2.2](https://github.com/camaraproject/Commonalities/releases/tag/r2.2) |
