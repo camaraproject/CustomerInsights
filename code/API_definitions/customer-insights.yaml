@@ -1,0 +1,490 @@
+openapi: 3.0.3
+info:
+  description: |-
+    Provides a risk index based on the individual's profile owned by a Telco Operator.
+
+    # Relevant Definitions and concepts
+
+    * **Scoring**: risk classification based on the individual's profile owned by a Telco Operator, i.e.: a rating on a scale that represents the risk index based on financial, socioeconomic and consumption data.
+
+        Two different scales are considered for the Scoring:
+
+        * **GaugeMetric**: Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
+          
+                  800-850: Exceptional, very low risk.
+
+                  740-799: Very Good, low risk.
+
+                  670-739: Good, moderate risk.
+
+                  580-669: Fair, higher risk.
+
+                  300-579: Poor, very high risk.
+
+
+        * **VeritasIndex**: Scoring scale that ranges from index 0 (lowest risk) to index 19 (highest risk), thus the lower the value of the index, the lower the risk it represents. This numerical scale can be related with _alphabetical_ identifiers similar to those used by major rating agencies such as Standard & Poor's, Moody's and Fitch. Values meaning is as follows:
+
+                  0-1      AAA
+                  2-3      AA
+                  4-5      A
+                  6-7      BBB
+                  8-9      BB
+                  10-11    B
+                  12-13    CCC
+                  14-15    CC
+                  16-17    C
+                  18-19    DDD
+
+    # API Functionality
+       
+    This API allows to retrieve the Scoring information of a user within the operator.
+
+    # Resources and Operations overview
+
+    The API provides the following endpoint:
+      
+      - An operation to retrieve Scoring information.        
+ 
+    # Authorization and authentication
+
+    The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
+
+    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the API consumer and the API provider, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+
+    In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
+
+    # Identifying the phone number from the access token
+
+    This API requires the API consumer to identify a phone number as the subject of the API as follows:
+    - When the API is invoked using a two-legged access token, the subject will be identified from the optional `phoneNumber` field, which therefore MUST be provided.
+    - When a three-legged access token is used however, this optional identifier MUST NOT be provided, as the subject will be uniquely identified from the access token.
+
+    This approach simplifies API usage for API consumers using a three-legged access token to invoke the API by relying on the information that is associated with the access token and was identified during the authentication process.
+
+    ## Error handling:
+
+    - If the subject cannot be identified from the access token and the optional `phoneNumber` field is not included in the request, then the server will return an error with the `422 MISSING_IDENTIFIER` error code.
+
+    - If the subject can be identified from the access token and the optional `phoneNumber` field is also included in the request, then the server will return an error with the `422 UNNECESSARY_IDENTIFIER` error code. This will be the case even if the same phone number is identified by these two methods, as the server is unable to make this comparison.
+
+    # Further info and support
+
+    (FAQs will be added in a later version of the documentation)
+  version: wip
+  title: Customer Insights
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Product documentation at Camara
+  url: https://github.com/camaraproject/CustomerInsights
+x-camara-commonalities: 0.5
+servers:
+  - url: "{apiRoot}/customer-insights/vwip"
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root, defined by the service provider
+tags:
+  - name: Scoring 
+    description: Operations to retrieve Scoring information.
+paths:
+  /scoring/retrieve:
+    post:
+      security:
+        - openId:
+            - customer-insights:scoring:read
+      tags:
+        - Scoring
+      summary: Retrieves Scoring information
+      description: >-
+        Retrieves Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
+        
+        It also allows to select the type of the Scoring scale measurement.
+      operationId: retrieveScoring
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoringRequest'
+            examples:
+              INPUT_GAUGE_METRIC:
+                summary: Gauge Metric
+                description: Gauge Metric score request, with no additional information. Default three-legged access mode for Gauge Metric
+                value:
+                  scoringType: gaugeMetric
+              INPUT_VERITAS_INDEX:
+                summary: Veritas Index
+                description: Veritas Index score request, with no additional information. Default three-legged access mode for Veritas index
+                value:
+                  scoringType: veritasIndex
+              INPUT_GAUGE_METRIC_PHONENUMBER:
+                summary: Gauge Metric with phoneNumber
+                description: Gauge Metric score request, with phoneNumber. Default two-legged access mode for Gauge Metric
+                value:
+                  phoneNumber: "+556253423432"
+                  scoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_PHONENUMBER:
+                summary: Veritas Index with phoneNumber
+                description: Veritas Index score request, with phoneNumber. Default two-legged access mode for Veritas index
+                value:
+                  phoneNumber: "+556253423432"
+                  scoringType: veritasIndex
+              INPUT_GAUGE_METRIC_ID_DOCUMENT:
+                summary: Gauge Metric with idDocument
+                description: Gauge Metric score request, with idDocument.
+                value:
+                  idDocument: "987654321"
+                  scoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_ID_DOCUMENT:
+                summary: Veritas Index with idDocument
+                description: Veritas Index score request, with idDocument.
+                value:
+                  idDocument: "987654321"
+                  scoringType: veritasIndex
+              INPUT_GAUGE_METRIC_PHONENUMBER_ID_DOCUMENT:
+                summary: Gauge Metric with phoneNumber and idDocument
+                description: Gauge Metric score request, with phoneNumber and idDocument.
+                value:
+                  idDocument: "987654321"
+                  phoneNumber: "+556253423432"
+                  scoringType: gaugeMetric
+              INPUT_VERITAS_INDEX_PHONENUMBER_ID_DOCUMENT:
+                summary: Veritas Index with phoneNumber and idDocument
+                description: Veritas Index score request, with phoneNumber and idDocument.
+                value:
+                  idDocument: "987654321"
+                  phoneNumber: "+556253423432"
+                  scoringType: veritasIndex
+      responses:
+        '200':
+          description: Scoring result.
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoringResponse'
+              examples:
+                GAUGE_METRIC:
+                  summary: Gauge Metric Response
+                  description: Scoring with Gauge Metric index
+                  value:
+                    scoringType: gaugeMetric
+                    scoringValue: 600
+                VERITAS_INDEX:
+                  summary: Veritas Index Response
+                  description: Scoring with Veritas Index
+                  value:
+                    scoringType: veritasIndex
+                    scoringValue: 4
+        '400':
+          $ref: '#/components/responses/Generic400'
+        '401':
+          $ref: '#/components/responses/Generic401'
+        '403':
+          $ref: '#/components/responses/Generic403'
+        '404':
+          $ref: '#/components/responses/Generic404'
+        '422':
+          $ref: '#/components/responses/Generic422'
+        '429':
+          $ref: '#/components/responses/Generic429'
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+        pattern: ^[a-zA-Z0-9-]{0,55}$
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: string
+        pattern: ^[a-zA-Z0-9-]{0,55}$
+        example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
+  schemas:
+    ScoringRequest:
+      type: object      
+      properties:
+        idDocument:          
+          type: string
+          description: |-
+           Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
+        phoneNumber:
+          type: string
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+          pattern: '^\+[1-9][0-9]{4,14}$'
+        scoringType:
+          type: string
+          description: |-
+            Scoring type, i.e.: scale. API Client may use this field to indicate the Scoring in one of the defined scales; if this field is not informed, the API will return the Scoring in the scale configured by default in the system.
+
+            Allowed values are:
+
+            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
+            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+          enum:
+            - gaugeMetric
+            - veritasIndex
+    ScoringResponse:
+      type: object
+      description: Scoring information based on the individual's profile owned by a Telco Operator.
+      required:
+        - scoringType
+        - scoringValue
+      properties:
+        scoringType:
+          type: string
+          description: |-
+            Scoring measurement system.
+            
+            Allowed values are:
+
+            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
+            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)        
+          enum:
+            - gaugeMetric
+            - veritasIndex
+        scoringValue:
+          type: integer
+          description: Result of the Scoring analysis expressed in the measure indicated in the `scoringType` field.
+    ErrorInfo:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code returned along with this error response.
+        code:
+          type: string
+          description: Code given to this error.
+        message:
+          type: string
+          description: Detailed error description.
+  responses:
+    Generic400:
+      description: |-
+        Problem with the client request.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 400
+                  code:
+                    enum:
+                      - INVALID_ARGUMENT
+          examples:
+            InvalidArgument:
+              description:  Invalid Argument. Generic Syntax Exception
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param
+    Generic401:
+      description: Unauthorized
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 401
+                  code:
+                    enum:
+                      - UNAUTHENTICATED
+                      - AUTHENTICATION_REQUIRED
+          examples:
+            GENERIC_401_UNAUTHENTICATED:
+              description: Request cannot be authenticated
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials.
+            GENERIC_401_AUTHENTICATION_REQUIRED:
+              description: New authentication is needed, authentication is no longer valid
+              value:
+                status: 401
+                code: AUTHENTICATION_REQUIRED
+                message: New authentication is required.  
+    Generic403:
+      description: Forbidden
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 403
+                  code:
+                    enum:
+                      - PERMISSION_DENIED
+          examples:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action.
+    Generic404:
+      description: |-
+        Not found
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 404
+                  code:
+                    enum:
+                      - NOT_FOUND
+          examples:
+            GENERIC_404_NOT_FOUND:
+              description: Resource is not found
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: The specified resource is not found.
+    Generic422:
+      description: |-
+        Unprocessable Content
+
+        In addition to regular scenario of Unprocessable Content, another scenarios may exist.
+        - Service not applicable for the provided identifier ("code": "SERVICE_NOT_APPLICABLE","message": "The service is not available for the provided identifier.")
+        - An identifier is not included in the request and the device or phone number identification cannot be derived from the 3-legged access token ("code": "MISSING_IDENTIFIER","message": "The phone number cannot be identified.")
+        - An explicit identifier is provided when a device or phone number has already been identified from the access token ("code": "UNNECESSARY_IDENTIFIER","message": "The phone number is already identified by the access token.")
+        - Provided `scoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter scoringType is not supported."`)
+        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
+        - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
+        - Required `idDocument` field and it is not provided. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation."`)
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 422
+                  code:
+                    enum:
+                      - SERVICE_NOT_APPLICABLE
+                      - MISSING_IDENTIFIER
+                      - UNNECESSARY_IDENTIFIER
+                      - CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
+                      - CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                      - CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
+                      - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED
+          examples:
+            GENERIC_422_SERVICE_NOT_APPLICABLE:
+              description: Service not applicable for the provided identifier
+              value:
+                status: 422
+                code: SERVICE_NOT_APPLICABLE
+                message: The service is not available for the provided identifier.
+            GENERIC_422_MISSING_IDENTIFIER:
+              description: An identifier is not included in the request and the device or phone number identification cannot be derived from the 3-legged access token
+              value:
+                status: 422
+                code: MISSING_IDENTIFIER
+                message: The phone number cannot be identified.
+            GENERIC_422_UNNECESSARY_IDENTIFIER:
+              description: An explicit identifier is provided when a device or phone number has already been identified from the access token
+              value:
+                status: 422
+                code: UNNECESSARY_IDENTIFIER
+                message: The phone number is already identified by the access token.
+            GENERIC_422_NOT_SUPPORTED_SCORING_TYPE_VALUE:
+              description: Error when `scoringType` value is not supported.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
+                message: Indicated parameter `scoringType` is not supported.
+            GENERIC_422_IDENTIFIERS_MISMATCH:
+              description: Error when provided `idDocument` is not consistent with the phone number.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                message: Provided `idDocument` is not consistent with the phone number.
+            GENERIC_422_ID_DOCUMENT_NOT_SUPPORTED:
+              description: Error when `idDocument` field is not supported
+              value:
+                status: 400
+                code: CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
+                message: Indicated parameter `idDocument` is not supported
+            GENERIC_422_ID_DOCUMENT_REQUIRED:
+              description: Error when `idDocument` field is not provided and it is required.
+              value:
+                status: 422
+                code: CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED
+                message: The `idDocument` is required to perform the properties validation.
+    Generic429:
+      description: Too Many Requests
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 429
+                  code:
+                    enum:
+                      - TOO_MANY_REQUESTS
+          examples:
+            GENERIC_429_TOO_MANY_REQUESTS:
+              description: Access to the API has been temporarily blocked due to rate or spike arrest limits being reached
+              value:
+                status: 429
+                code: TOO_MANY_REQUESTS
+                message: Rate limit reached.
