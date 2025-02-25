@@ -70,7 +70,7 @@ info:
     # Further info and support
 
     (FAQs will be added in a later version of the documentation)
-  version: v0.1.0-rc.1
+  version: v0.1.0
   title: Customer Insights
   license:
     name: Apache 2.0
@@ -80,7 +80,7 @@ externalDocs:
   url: https://github.com/camaraproject/CustomerInsights
 x-camara-commonalities: 0.5
 servers:
-  - url: "{apiRoot}/customer-insights/v0.1rc1"
+  - url: "{apiRoot}/customer-insights/v0.1"
     variables:
       apiRoot:
         default: http://localhost:9091
