@@ -16,7 +16,7 @@ The below sections record the changes for each API version in each release as fo
 
 ## r1.2
 
-This pre-release contains the definition and documentation of
+This public release contains the definition and documentation of
 * Customer Insights v0.1.0
 
 The API definition(s) are based on
@@ -25,7 +25,7 @@ The API definition(s) are based on
 
 ## Customer Insights v0.1.0
 
-**Customer Insights v0.1.0 is the first public release version for v0.1.0 of the Customer Insights API.**
+**Customer Insights v0.1.0 is the first public release version of the Customer Insights API.**
 - **This version defines a new API:**
   - Initial version covering the following functionality and related endpoints:
     - New endpoint `retrieveScoring`, to retrieve the Scoring information of a user within the operator
