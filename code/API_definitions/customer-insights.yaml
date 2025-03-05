@@ -70,7 +70,7 @@ info:
     # Further info and support
 
     (FAQs will be added in a later version of the documentation)
-  version: v0.1.0
+  version: 0.1.0
   title: Customer Insights
   license:
     name: Apache 2.0
