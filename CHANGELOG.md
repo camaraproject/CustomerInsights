@@ -57,7 +57,7 @@ The API definition(s) are based on
 * N/A
 
 
-**Full Changelog**: https://github.com/camaraproject/CustomerInsights/commits/r1.2
+**Full Changelog**: https://github.com/camaraproject/CustomerInsights/compare/r1.1...r1.2
 
 
 ## r1.1 - rc
