@@ -16,6 +16,8 @@ The below sections record the changes for each API version in each release as fo
 
 ## r1.2
 
+## Release Notes
+
 This public release contains the definition and documentation of
 * Customer Insights v0.1.0
 
