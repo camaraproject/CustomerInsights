@@ -7,7 +7,7 @@ Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveScoring
   # Testing assets:
   # * A phone number whose scoring can be obtained
   #
-  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml, version 0.1.0
+  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml, version 0.1.1
 
   Background: Common createPayment setup
     Given the resource "/customer-insights/v0.1/scoring/retrieve"
