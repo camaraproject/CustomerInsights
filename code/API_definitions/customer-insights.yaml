@@ -70,7 +70,7 @@ info:
     # Further info and support
 
     (FAQs will be added in a later version of the documentation)
-  version: 0.1.0
+  version: 0.1.1
   title: Customer Insights
   license:
     name: Apache 2.0
@@ -454,7 +454,7 @@ components:
             GENERIC_422_ID_DOCUMENT_NOT_SUPPORTED:
               description: Error when `idDocument` field is not supported
               value:
-                status: 400
+                status: 422
                 code: CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
                 message: Indicated parameter `idDocument` is not supported
             GENERIC_422_ID_DOCUMENT_REQUIRED:
