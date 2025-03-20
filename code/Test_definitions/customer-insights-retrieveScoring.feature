@@ -1,4 +1,4 @@
-Feature: CAMARA Customer Insights API, v0.1 - Operation retrieveScoring
+Feature: CAMARA Customer Insights API, v0.1.1 - Operation retrieveScoring
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
