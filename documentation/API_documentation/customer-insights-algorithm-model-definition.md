@@ -9,7 +9,7 @@ CAMARA WG recognizes this is a non-exhaustive list:
 The list of concepts is depicted below:
 
 | **ORDER (NOTE 1)** | **CONCEPT/PARAMETER (NOTE 2)** | **DESCRIPTION** | **FORMAT (NOTE 3)** | **ADDITIONAL COMMENTS** | **BASELINE CONCEPT (NOTE 4)**| 
-|:------------------:|:------------------------------:|:----------------|:-------------------:|:------------------------|:-----------------------------|
+|:-------------------|:-------------------------------|:----------------|:-------------------:|:------------------------|:-----------------------------|
 | #1 | subscription_type | Contract type (Postpay, Prepay, Control/Hybrid) | string | N/A | YES |
 | #2 | customer_since_months | Time since the customer belongs to the Telco Operator in months | integer | N/A | YES |
 | #3 |  outgoing_calls_minutes_in_{period} | Accumulated time of outgoing calls in minutes in the last {period} agreed in the specific market (1 month, 3 months, 6 months, ...) | decimal | N/A | YES |
@@ -26,7 +26,7 @@ The list of concepts is depicted below:
 | #14 | social_networks_data_consumption_{unit}_{subscription}\_in\_{period} | Accumulated outgoing data session consumed in Social Networks in agreed {units}, {subscription} and {period} in the specific market:<br> * {units}: MB or GB<br>* {subscription}: Postpay, Prepay or Control/Hybrid (mixed case of Postpay/Prepay)<br>* {period}: 1 month, 3 months, 6 months, ... | decimal | This concept may have GDPR constraints in a given market to be considered. Please check regulation in the market/country for the consideration of this concept. | NO |
 
 
-**NOTE 1**: This is a recommenadation for consideration order in the algorithm.
+**NOTE 1**: This is a recommenadation for consideration order in the algorithm.<br>
 **NOTE 2**: This is an informative name, the exact name of the parameter is up to the implementation.<br>
-**NOTE 3**: This is a recommendation. Up to the implementation agreed in a specific market.
+**NOTE 3**: This is a recommendation. Up to the implementation agreed in a specific market.<br>
 **NOTE 4**: This is a recommendation about which concepts (marked with YES) could be considered as potential baseline for initial implementations. The others (marked with NO) would be considered as advanced features.<br>
