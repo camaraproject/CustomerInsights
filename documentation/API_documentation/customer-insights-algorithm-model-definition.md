@@ -9,7 +9,7 @@ CAMARA WG recognizes this is a non-exhaustive list:
 The list of concepts is depicted below:
 
 | **ORDER (NOTE 1)** | **CONCEPT/PARAMETER (NOTE 2)** | **DESCRIPTION** | **FORMAT (NOTE 3)** | **ADDITIONAL COMMENTS** | **BASELINE CONCEPT (NOTE 4)**| 
-|:-------------------|:-------------------------|:----------------|:-------------------:|:------------------------|:-----------------------------|
+|:-------------------|:-------------------------------|:----------------|:-------------------:|:------------------------|:-----------------------------|
 | #1 | subscription_type | Contract type (Postpay, Prepay, Control/Hybrid) | string | N/A | YES |
 | #2 | customer_since_months | Time since the customer belongs to the Telco Operator in months | integer | N/A | YES |
 | #3 |  outgoing_calls_minutes_in_{period} | Accumulated time of outgoing calls in minutes in the last {period} agreed in the specific market (1 month, 3 months, 6 months, ...) | decimal | N/A | YES |
@@ -23,7 +23,7 @@ The list of concepts is depicted below:
 | #11 | max_payment_due_date_delay_in_{period} | Maximum number of days the customer delayed his payment (after due date) in the last {period} agreed in the specific market (1 month, 3 months, 6 months, ...). Only applies to Postpay or Control/Hybrid | integer | N/A | NO |
 | #12 | max_overdue_balance_in_{period} | Maximum balance amount in the official market currency that was not paid by due date over the last {period} agreed in the specific market (1 month, 3 months, 6 months, ...) | decimal | N/A | NO |
 | #13 | geographical_numbering_area | Geographical Numbering Area, representing the part of the phone number that is linked to a geographical (Fixed or Mobile Area). | integer | Used for instance in payments, when Telco Operator has the historical payments of customers and their ubication, in order to check number of payments and their amount (i.e. to check whether he/she is a good payer). | NO | 
-| #14 | social_networks_data_consumption_{unit}_{subscription}\_in\_{period} | Accumulated outgoing data session consumed in Social Networks in agreed {units}, {subscription} and {period} in the specific market:<br> * {units}: MB or GB<br>* {subscription}: Postpay, Prepay or Control/Hybrid (mixed case of Postpay/Prepay)<br>* {period}: 1 month, 3 months, 6 months, ... | decimal | This concept may have GDPR constraints in a given market to be considered. Please check regulation in the market/country for the consideration of this concept. | NO |
+| #14 | social_net_data_{unit}_{subscription}\_in\_{period} | Accumulated outgoing data session consumed in Social Networks in agreed {units}, {subscription} and {period} in the specific market:<br> * {units}: MB or GB<br>* {subscription}: Postpay, Prepay or Control/Hybrid (mixed case of Postpay/Prepay)<br>* {period}: 1 month, 3 months, 6 months, ... | decimal | This concept may have GDPR constraints in a given market to be considered. Please check regulation in the market/country for the consideration of this concept. | NO |
 
 
 **NOTE 1**: This is a recommenadation for consideration order in the algorithm.<br>
