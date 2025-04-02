@@ -8,8 +8,8 @@ CAMARA WG recognizes this is a non-exhaustive list:
 
 The list of concepts is depicted below:
 
-| **ORDER <br>(NOTE 1)** | **CONCEPT/PARAMETER (NOTE 2)** | **DESCRIPTION** | **FORMAT (NOTE 3)** | **ADDITIONAL COMMENTS** | **BASELINE CONCEPT (NOTE 4)**| 
-|:-----------------------|:-------------------------------|:----------------|:-------------------:|:------------------------|:-----------------------------|
+| **ORDER (NOTE 1)** | **CONCEPT/PARAMETER (NOTE 2)** | **DESCRIPTION** | **FORMAT (NOTE 3)** | **ADDITIONAL COMMENTS** | **BASELINE CONCEPT (NOTE 4)**| 
+|:-------------------|:------------------------------:|:----------------|:-------------------:|:------------------------|:-----------------------------|
 | #1 | subscription_type | Contract type (Postpay, Prepay, Control/Hybrid) | string | N/A | YES |
 | #2 | customer_since_months | Time since the customer belongs to the Telco Operator in months | integer | N/A | YES |
 | #3 |  outgoing_calls_minutes_in_{period} | Accumulated time of outgoing calls in minutes in the last {period} agreed in the specific market (1 month, 3 months, 6 months, ...) | decimal | N/A | YES |
