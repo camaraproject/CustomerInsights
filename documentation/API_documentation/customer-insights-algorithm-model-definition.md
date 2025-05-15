@@ -97,7 +97,7 @@ Below example considers:
 | outgoing_data_{unit}_{subscription}\_in\_{period} | 12,5 | 100 | 7 | 0,875 | N/A |
 | incoming_calls_minutes_in_{period} | 6,25 | 300 | 10 | 0,625 | N/A |
 | incoming_sms_in_{period} | 6,25 | 10 | 16 | 1 | N/A |
-| arpu_in_{period} | 25 | 100 | 5 | 2,5 | N/A |
+| arpu_in_{period} | 25 | 100 | 10 | 2,5 | N/A |
 | scoringValue | 100% | N/A | N/A | 8,75 | 9 |
 
 
