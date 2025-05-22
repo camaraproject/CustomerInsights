@@ -70,7 +70,7 @@ Below example considers:
 - period of 1 month
 - data units in GB
 - Indicated weight for each concept considered
-- Concepts considered: The ones tagged as Baseline concepts (first eitht ones)
+- Concepts considered: The ones tagged as Baseline concepts (first eight ones)
 - Example ranges for each concept associated to each score range
 
 
@@ -79,7 +79,7 @@ Below example considers:
 | subscription_type | 12,5 | N/A | N/A | N/A | N/A | postpay | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | prepay | N/A | N/A | N/A | N/A | N/A |
 | customer_since_months | 12,5 | x > 120 | 96 < x <= 120 | 72 < x <= 96 | 60 < x <= 72 | 48 < x <= 60 | 36 < x <= 48 | 24 < x <= 36 | 12 < x <= 24 | 11 < x <= 12 | 10 < x <= 11 | 9 < x <= 10 | 8 < x <= 9 | 7 < x <= 8 | 6 < x <= 7  | 5 < x <= 6 | 4 < x <= 5 | 3 < x <= 4 | 2 < x <= 3 | 1 < x <= 2 | 0 <= x <= 1 |
 | outgoing_calls_minutes_in_{period} | 12,5 | x > 1140 | 1080 < x <= 1140 | 1020 < x <= 1080 | 960 < x <= 1020 | 900 < x <= 960 | 840 < x <= 900 | 780 < x <= 840 | 720 < x <= 780 | 660 < x <= 720 | 600 < x <= 660 | 540 < x <= 600 | 480 < x <= 540 | 420 < x <= 480 | 360 < x <= 420 | 300 < x <= 360 | 240 < x <= 300 | 180 < x <= 240 | 120 < x <= 180 | 60 < x <= 120 | 0 <= x <= 60 |
-| outgoing_sms_in_{period} | 12,5 | > 100 | 90 < x <= 100 | 80 < x <= 90 | 70 < x <= 80 | 60 < x <= 70 | 50 < x <= 60 | 40 < x <= 50 | 35 < x <= 40 | 30 < x <= 35 | 25 < x <= 30 | 20 < x <= 25 | 15 < x <= 20 | 10 < x <= 15 | 12 < x <= 14 | 11 < x <= 13 | 8 < x <= 10 | 6 < x <= 8 | 4 < x <= 6 | 2 < x <= 4 | 0 <= x <= 2 |
+| outgoing_sms_in_{period} | 12,5 | > 100 | 90 < x <= 100 | 80 < x <= 90 | 70 < x <= 80 | 60 < x <= 70 | 50 < x <= 60 | 40 < x <= 50 | 35 < x <= 40 | 30 < x <= 35 | 25 < x <= 30 | 20 < x <= 25 | 17 < x <= 20 | 14 < x <= 17 | 12 < x <= 14 | 10 < x <= 12 | 8 < x <= 10 | 6 < x <= 8 | 4 < x <= 6 | 2 < x <= 4 | 0 <= x <= 2 |
 | outgoing_data_{unit}_{subscription}\_in\_{period} | 12,5 | x > 160 | 150 < x <= 160 | 140 < x <= 150 | 130 < x <= 140 | 120 < x <= 130 | 110 < x <= 120 | 100 < x <= 110 | 90 < x <= 100 | 80 < x <= 90 | 70 < x <= 80 | 60 < x <= 70 | 50 < x <= 60 | 40 < x <= 50 | 30 < x <= 40 | 25 < x <= 30 | 20 < x <= 25 | 15 < x <= 20 | 10 < x <= 15 | 5 < x <= 10 | 0 <= x <= 5 |
 | incoming_calls_minutes_in_{period} | 6,25 | x > 570 | 540 < x <= 570 | 510 < x <= 540 | 480 < x <= 510 | 450 < x <= 480 | 420 < x <= 450 | 390 < x <= 420 | 360 < x <= 390 | 330 < x <= 360 | 300 < x <= 330 | 270 < x <= 300 | 240 < x <= 270 | 210 < x <= 240 | 180 < x <= 210 | 150 < x <= 180 | 120 < x <= 150 | 90 < x <= 120 | 60 < x <= 90 | 30 < x <= 60 | 0 <= x <= 30 |
 | incoming_sms_in_{period} | 6,25 | x > 57 | 54 < x <= 57 | 51 < x <= 54 | 48 < x <= 51 | 45 < x <= 48 | 42 < x <= 45 | 39 < x <= 42 | 36 < x <= 39 | 33 < x <= 36 | 30 < x <= 33 | 27 < x <= 30 | 24 < x <= 27 | 21 < x <= 24 | 18 < x <= 21 | 15 < x <= 18 | 12 < x <= 15 | 9 < x <= 12 | 6 < x <= 9 | 3 < x <= 6 | 0 <= x <= 3 |
@@ -103,3 +103,5 @@ Below example considers:
 
 **scoringValue weighted score** is indicated in **column WEIGHTED SCORE** as the sum of the **WEIGHTED SCORE** of every concept.<br>
 **scoringValue** is indicated in **column SCORE** rounding to the nearest integer of the **scoringValue weighted score**
+
+NOTE: This example uses `,` as the decimal separator as per the `ISO 80000-1` standard.
