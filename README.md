@@ -33,7 +33,7 @@ Repository to describe, develop, document, and test the CustomerInsights API(s)
 * The release **r1.3** is available in [r1.3](https://github.com/camaraproject/CustomerInsights/tree/r1.3), and includes the following APIs:
 - API name: Customer Insights - API Definition v0.1.1 with inline documentation:
   - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r1.3/code/API_definitions/customer-insights.yaml&nocors)
-  - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r1.3/code/API_definitions/customer-insights.yaml)
+  - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r1.3/code/API_definitions/customer-insights.yaml)
   - OpenAPI [YAML spec file](https://github.com/camaraproject/CustomerInsights/blob/r1.3/code/API_definitions/customer-insights.yaml)
 
 * Other releases of this sub project are available in [CustomerInsights Releases](https://github.com/camaraproject/CustomerInsights/releases)
