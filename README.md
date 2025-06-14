@@ -44,7 +44,7 @@ Sandbox API Repository to describe, develop, document, and test the CustomerInsi
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/CustomerInsights/blob/main/CHANGELOG.md)
 
 ## Contributing
-* Meetings are held virtually <!-- for new API families request a meeting link from the LF admin team or replace the information with the existing meeting information (of the API family) -->
+* Meetings are held virtually
     * Schedule: Bi-Weekly on Thursdays at 14:00 UTC
     * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/95737002367?password=034d9b74-a944-4def-ae30-0f93802430a5)
     * Minutes: Access [[meeting minutes]](https://lf-camaraproject.atlassian.net/wiki/x/XIBuAQ)
