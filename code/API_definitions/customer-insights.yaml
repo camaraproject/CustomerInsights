@@ -224,6 +224,10 @@ components:
       type: string
       pattern: ^[a-zA-Z0-9-_:;.\/<>{}]{0,256}$
       example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
+    PhoneNumber:
+      type: string
+      description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+      pattern: '^\+[1-9][0-9]{4,14}$'
     ScoringRequest:
       type: object      
       properties:
@@ -232,9 +236,7 @@ components:
           description: |-
            Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
         phoneNumber:
-          type: string
-          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
-          pattern: '^\+[1-9][0-9]{4,14}$'
+          $ref: '#/components/schemas/PhoneNumber'
         scoringType:
           type: string
           description: |-
