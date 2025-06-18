@@ -367,6 +367,9 @@ components:
     Generic404:
       description: |-
         Not found
+
+        In addition to regular NOT_FOUND scenario, another scenarios may exist:
+        - Phone Number not found ("code": "IDENTIFIER_NOT_FOUND","message": "phoneNumber not found.").
       headers:
         x-correlator:
           $ref: "#/components/headers/x-correlator"
@@ -383,6 +386,7 @@ components:
                   code:
                     enum:
                       - NOT_FOUND
+                      - IDENTIFIER_NOT_FOUND
           examples:
             GENERIC_404_NOT_FOUND:
               description: Resource is not found
@@ -390,6 +394,12 @@ components:
                 status: 404
                 code: NOT_FOUND
                 message: The specified resource is not found.
+            GENERIC_404_IDENTIFIER_NOT_FOUND:
+              description: Some identifier cannot be matched to a device. In this API it refers to a phoneNumber.
+              value:
+                status: 404
+                code: IDENTIFIER_NOT_FOUND
+                message: phoneNumber not found.
     Generic422:
       description: |-
         Unprocessable Content
