@@ -7,13 +7,13 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   # Testing assets:
   # * A phone number whose scoring can be obtained
   #
-  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml
+  # References to OAS spec schemas refer to schemas specifies in customer-insights.yaml, version 0.2.0-rc.1
 
-  Background: Common createPayment setup
+  Background: Common retrieveScoring setup
     Given the resource "/customer-insights/v0.2rc1/scoring/retrieve"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
-    And the header "x-correlator" is set to a UUID value
+    And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
     And the request body is set by default to a request body compliant with the schema
 
   ##############################
@@ -24,7 +24,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Common validations for any success scenario
     # Valid default request body compliant with the schema
     Given the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -35,7 +35,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Common validations for any success scenario idDocument information provided
     Given the request body property "$.idDocument" is set to a valid value
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -46,7 +46,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Common validations for any success scenario with scoringType information provided
     Given the request body property "$.scoringType" is set with a valid value
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -59,7 +59,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Baseline Phone Number identification scenario via access token
     Given the header "Authorization" is set to a valid access token associated to a valid phone number existing in the environment
     And the request body is set to "{}"
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -72,7 +72,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     Given the header "Authorization" is set to a valid access token not associated to any phone number
     And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -88,7 +88,17 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   @retrieve_scoring_400.01_no_request_body
   Scenario: Missing request body
     Given the request body is not included
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
+    Then the response status code is 400
+    And the response property "$.status" is 400
+    And the response property "$.code" is "INVALID_ARGUMENT"
+    And the response property "$.message" contains a user friendly text
+
+  @retrieve_scoring_400.02_invalid_x-correlator
+  Scenario: Invalid x-correlator header
+    Given the header "x-correlator" does not comply with the schema at "#/components/schemas/XCorrelator"
+    And the request body is set to a valid request body
+    When the request "retrieveScoring" is sent
     Then the response status code is 400
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
@@ -98,7 +108,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Phone number value does not comply with the schema
     Given the header "Authorization" is set to a valid access which does not identify a single phone number
     And the request body property "$.phoneNumber" does not comply with the OAS schema at "/components/schemas/PhoneNumber"
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 400
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
@@ -110,7 +120,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: No Authorization header
     Given the header "Authorization" is removed
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 401
     And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
@@ -120,7 +130,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Expired access token
     Given the header "Authorization" is set to an expired access token
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 401
     And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
@@ -130,7 +140,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Invalid access token
     Given the header "Authorization" is set to an invalid access token
     And the request body is set to a valid request body
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
@@ -144,7 +154,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     # To test this scenario, it will be necessary to obtain a token without the required scope
     Given the request body is set to a valid request body
     And the header "Authorization" is set to an access token without the required scope
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 403
     And the response property "$.status" is 403
     And the response property "$.code" is "PERMISSION_DENIED"
@@ -152,15 +162,25 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
 
   # Error 404 scenarios
 
-  @retrieve_scoring_404.01_not_found
-  Scenario: Scoring not found
-    # To test this, a 2-legged access token is needed, just because if not it triggers test "@retrieve_scoring_C02.03_unnecessary_phone_number"
-    Given the header "Authorization" is set to a valid access token not identifying a phone number
-    And the request body property "$.phoneNumber" is set to a valid phone number not existing in the environment
-    When the HTTP "POST" request is sent
+  @retrieve_scoring_404.01_idDocument_not_found
+  Scenario: idDocument not found
+    Given the header "Authorization" is set to a valid access token identifying a phone number
+    And the request body property "$.idDocument" is set to a valid value not existing in the environment
+    When the request "retrieveScoring" is sent
     Then the response status code is 404
     And the response property "$.status" is 404
     And the response property "$.code" is "NOT_FOUND"
+    And the response property "$.message" contains a user friendly text
+
+  @retrieve_scoring_C02.02_phone_number_not_found
+  Scenario: Phone number not found
+    # To test this, a 2-legged access token is needed, just because if not it triggers test "@retrieve_scoring_C02.03_unnecessary_phone_number"
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+    And the request body property "$.phoneNumber" is compliant with the schema but does not identify a valid phone number
+    When the request "retrieveScoring" is sent
+    Then the response status code is 404
+    And the response property "$.status" is 404
+    And the response property "$.code" is "IDENTIFIER_NOT_FOUND"
     And the response property "$.message" contains a user friendly text
 
   # Error 422 scenarios
@@ -169,7 +189,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Scoring type not supported
     Given the header "Authorization" is set to a valid access token
     And the request body property "$.scoringType" is set to a value not supported in the environment
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED"
@@ -180,7 +200,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     Given the header "Authorization" is set to a valid access token
     And the request body property "$.phoneNumber" is set to a valid phone number
     And the request body property "$.idDocument" is set to a valid value not associated to user's phone number
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH"
@@ -191,7 +211,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Id Document not supported
     Given the header "Authorization" is set to a valid access token
     And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
@@ -202,7 +222,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Id Document required
     Given the header "Authorization" is set to a valid access token
     And the request body property "$.idDocument" is missing
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
@@ -212,7 +232,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Phone number not to be included when it can be deduced from the access token
     Given the header "Authorization" is set to a valid access token identifying a phone number
     And the request body property "$.phoneNumber" is set to a valid phone number
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "UNNECESSARY_IDENTIFIER"
@@ -222,7 +242,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Phone number not included and cannot be deducted from the access token
     Given the header "Authorization" is set to a valid access token which does not identify a single phone number
     And the request body property "$.phoneNumber" is not included
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "MISSING_IDENTIFIER"
@@ -234,7 +254,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   Scenario: Service not available for the phone number
     Given that the service is not available for all phone numbers commercialized by the operator
     And a valid phone number, identified by the token or provided in the request body, for which the service is not applicable
-    When the HTTP "POST" request is sent
+    When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
@@ -249,7 +269,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
    And the request body is set to a valid request body
    And the header "Authorization" is set to a valid access token
    And the threshold of requests has been reached
-   When the "POST" request is sent
+   When the request "retrieveScoring" is sent
    Then the response status code is 429
    And the response property "$.status" is 429
    And the response property "$.code" is "TOO_MANY_REQUESTS"
