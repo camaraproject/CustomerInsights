@@ -263,18 +263,18 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   # Error 429 scenarios
 
   @retrieve_scoring_429.01_Too_Many_Requests
-  #To test this scenario environment has to be configured to reject requests reaching the threshold limit settled. N is a value defined by the Telco Operator
+  #To test this scenario environment has to be configured to reject requests reaching the threshold limit settled. N is a value defined by the Telco Operator
   Scenario: Request is rejected due to threshold policy
-   Given that the environment is configured with a threshold policy of N transactions per second
-   And the request body is set to a valid request body
-   And the header "Authorization" is set to a valid access token
-   And the threshold of requests has been reached
-   When the request "retrieveScoring" is sent
-   Then the response status code is 429
-   And the response property "$.status" is 429
-   And the response property "$.code" is "TOO_MANY_REQUESTS"
-   And the response property "$.message" contains a user friendly text
+    Given that the environment is configured with a threshold policy of N transactions per second
+    And the request body is set to a valid request body
+    And the header "Authorization" is set to a valid access token
+    And the threshold of requests has been reached
+    When the request "retrieveScoring" is sent
+    Then the response status code is 429
+    And the response property "$.status" is 429
+    And the response property "$.code" is "TOO_MANY_REQUESTS"
+    And the response property "$.message" contains a user friendly text
 
-  ##############################
-  ##END
-  ##############################
+##############################
+##END
+##############################
