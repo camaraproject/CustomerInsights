@@ -49,7 +49,7 @@ The API definition(s) are based on
 * New tests `@retrieve_scoring_400.02_invalid_x-correlator` and `@retrieve_scoring_C02.02_phone_number_not_found` in Gherkin `.feature` file in https://github.com/camaraproject/CustomerInsights/pull/44
 
 ### Changed
-* `phoneNumber` field referenced to an schema for testing matching in https://github.com/camaraproject/CustomerInsights/pull/43
+* `phoneNumber` field referenced to a schema for testing matching in https://github.com/camaraproject/CustomerInsights/pull/43
 * New pattern for `x-correlator` and model aligment with Commonalities in https://github.com/camaraproject/CustomerInsights/pull/43
 * Test `@retrieve_scoring_404.01` refactor and generic aligments (including x-correlator Background set-up update) in Gherkin `.feature` file in https://github.com/camaraproject/CustomerInsights/pull/44
 
