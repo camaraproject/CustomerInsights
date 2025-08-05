@@ -409,7 +409,7 @@ components:
         - An identifier is not included in the request and the device or phone number identification cannot be derived from the 3-legged access token ("code": "MISSING_IDENTIFIER","message": "The phone number cannot be identified.")
         - An explicit identifier is provided when a device or phone number has already been identified from the access token ("code": "UNNECESSARY_IDENTIFIER","message": "The phone number is already identified by the access token.")
         - Provided `scoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter scoringType is not supported."`)
-        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
+        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
         - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
         - Required `idDocument` field and it is not provided. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation."`)
       headers:
@@ -431,7 +431,7 @@ components:
                       - MISSING_IDENTIFIER
                       - UNNECESSARY_IDENTIFIER
                       - CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
-                      - CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                      - CUSTOMER_INSIGHTS.ID_DOCUMENT_MISMATCH
                       - CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
                       - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED
           examples:
@@ -459,11 +459,11 @@ components:
                 status: 422
                 code: CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
                 message: Indicated parameter `scoringType` is not supported.
-            GENERIC_422_IDENTIFIERS_MISMATCH:
+            GENERIC_422_ID_DOCUMENT_MISMATCH:
               description: Error when provided `idDocument` is not consistent with the phone number.
               value:
                 status: 422
-                code: CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                code: CUSTOMER_INSIGHTS.ID_DOCUMENT_MISMATCH
                 message: Provided `idDocument` is not consistent with the phone number.
             GENERIC_422_ID_DOCUMENT_NOT_SUPPORTED:
               description: Error when `idDocument` field is not supported
