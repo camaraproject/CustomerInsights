@@ -206,7 +206,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.code" is "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH"
     And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.03a_id_document_not_supported_three_legged
+@retrieve_scoring_422.03_id_document_not_supported_three_legged
 Scenario: Id Document not supported with 3-legged token
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
@@ -217,7 +217,7 @@ Scenario: Id Document not supported with 3-legged token
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.03b_id_document_not_supported_two_legged
+@retrieve_scoring_422.04_id_document_not_supported_two_legged
 Scenario: Id Document not supported with 2-legged token
   Given the header "Authorization" is set to a valid access token which does not identify a single phone number
   And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
@@ -228,7 +228,7 @@ Scenario: Id Document not supported with 2-legged token
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.03c_id_document_not_supported_three_legged_with_scoring_type
+@retrieve_scoring_422.05_id_document_not_supported_three_legged_with_scoring_type
 Scenario: Id Document not supported with 3-legged token and scoringType
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
@@ -240,7 +240,7 @@ Scenario: Id Document not supported with 3-legged token and scoringType
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.03d_id_document_not_supported_two_legged_with_scoring_type
+@retrieve_scoring_422.06_id_document_not_supported_two_legged_with_scoring_type
 Scenario: Id Document not supported with 2-legged token and scoringType
   Given the header "Authorization" is set to a valid access token which does not identify a single phone number
   And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
@@ -252,7 +252,7 @@ Scenario: Id Document not supported with 2-legged token and scoringType
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.04a_id_document_required_three_legged
+@retrieve_scoring_422.07_id_document_required_three_legged
 Scenario: Id Document required with 3-legged token
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is not included
@@ -264,7 +264,7 @@ Scenario: Id Document required with 3-legged token
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.04b_id_document_required_two_legged
+@retrieve_scoring_422.08_id_document_required_two_legged
 Scenario: Id Document required with 2-legged token
   Given the header "Authorization" is set to a valid access token which does not identify a single phone number
   And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
@@ -276,7 +276,7 @@ Scenario: Id Document required with 2-legged token
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.04c_id_document_required_three_legged_with_scoring_type
+@retrieve_scoring_422.09_id_document_required_three_legged_with_scoring_type
 Scenario: Id Document required with 3-legged token and scoringType
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is not included
@@ -289,7 +289,7 @@ Scenario: Id Document required with 3-legged token and scoringType
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
   And the response property "$.message" contains a user friendly text
 
-@retrieve_scoring_422.04d_id_document_required_two_legged_with_scoring_type
+@retrieve_scoring_422.10_id_document_required_two_legged_with_scoring_type
 Scenario: Id Document required with 2-legged token and scoringType
   Given the header "Authorization" is set to a valid access token which does not identify a single phone number
   And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
