@@ -232,7 +232,7 @@ Scenario: Id Document not supported with 2-legged token
 Scenario Outline: Id Document not supported with 3-legged token and scoringType
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
-  And the request body property "$.scoringType" is set to "gaugeMetric"
+  And the request body property "$.scoringType" is set to "<score_type>"
   And the request body property "$.phoneNumber" is not included
   When the request "retrieveScoring" is sent
   Then the response status code is 422
