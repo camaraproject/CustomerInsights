@@ -239,6 +239,11 @@ Scenario Outline: Id Document not supported with 3-legged token and scoringType
   And the response property "$.status" is 422
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
   And the response property "$.message" contains a user friendly text
+  
+  Examples:
+  | score_type    |
+  | gaugeMetric |
+  | veritasIndex  |
 
 @retrieve_scoring_422.06_id_document_not_supported_two_legged_with_scoring_type
 Scenario: Id Document not supported with 2-legged token and scoringType
