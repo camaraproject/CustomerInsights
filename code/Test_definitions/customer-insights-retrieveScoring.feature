@@ -229,7 +229,7 @@ Scenario: Id Document not supported with 2-legged token
   And the response property "$.message" contains a user friendly text
 
 @retrieve_scoring_422.05_id_document_not_supported_three_legged_with_scoring_type
-Scenario: Id Document not supported with 3-legged token and scoringType
+Scenario Outline: Id Document not supported with 3-legged token and scoringType
   Given the header "Authorization" is set to a valid access token identifying a phone number
   And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
   And the request body property "$.scoringType" is set to "gaugeMetric"
