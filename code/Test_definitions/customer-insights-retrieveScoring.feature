@@ -299,7 +299,7 @@ Scenario: Id Document required with 3-legged token and scoringType
   And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
   And the response property "$.message" contains a user friendly text
 
-    Examples:
+  Examples:
   | score_type    |
   | gaugeMetric |
   | veritasIndex  |
