@@ -1,4 +1,4 @@
-Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
+Feature: CAMARA Customer Insights API, v0.2.0 - Operation retrieveScoring
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
@@ -10,7 +10,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   # References to OAS spec schemas refer to schemas specified in customer-insights.yaml
 
   Background: Common retrieveScoring setup
-    Given the resource "/customer-insights/v0.2rc1/scoring/retrieve"
+    Given the resource "/customer-insights/v0.2/scoring/retrieve"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
