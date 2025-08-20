@@ -7,7 +7,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
   # Testing assets:
   # * A phone number whose scoring can be obtained
   #
-  # References to OAS spec schemas refer to schemas specified in customer-insights.yaml, version 0.2.0-rc.1
+  # References to OAS spec schemas refer to schemas specified in customer-insights.yaml
 
   Background: Common retrieveScoring setup
     Given the resource "/customer-insights/v0.2rc1/scoring/retrieve"
@@ -206,10 +206,21 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.code" is "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH"
     And the response property "$.message" contains a user friendly text
 
-  @retrieve_scoring_422.03_id_document_not_supported
-  # Scenario that may apply depending on Telco Operator business rules
-  Scenario: Id Document not supported
-    Given the header "Authorization" is set to a valid access token
+  @retrieve_scoring_422.03_id_document_not_supported_three_legged
+  Scenario: Id Document not supported with 3-legged token
+    Given the header "Authorization" is set to a valid access token identifying a phone number
+    And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
+    And the request body property "$.phoneNumber" is not included
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
+    And the response property "$.message" contains a user friendly text
+
+  @retrieve_scoring_422.04_id_document_not_supported_two_legged
+  Scenario: Id Document not supported with 2-legged token
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+    And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
     And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
     When the request "retrieveScoring" is sent
     Then the response status code is 422
@@ -217,16 +228,99 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
 
-  @retrieve_scoring_422.04_id_document_required
-  # Scenario that may apply depending on Telco Operator business rules
-  Scenario: Id Document required
-    Given the header "Authorization" is set to a valid access token
-    And the request body property "$.idDocument" is missing
+  @retrieve_scoring_422.05_id_document_not_supported_three_legged_with_scoring_type
+  Scenario Outline: Id Document not supported with 3-legged token and scoringType
+    Given the header "Authorization" is set to a valid access token identifying a phone number
+    And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
+    And the request body property "$.scoringType" is set to "<score_type>"
+    And the request body property "$.phoneNumber" is not included
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
+    And the response property "$.message" contains a user friendly text
+    
+    Examples:
+    | score_type    |
+    | gaugeMetric |
+    | veritasIndex  |
+
+  @retrieve_scoring_422.06_id_document_not_supported_two_legged_with_scoring_type
+  Scenario Outline: Id Document not supported with 2-legged token and scoringType
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+    And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
+    And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
+    And the request body property "$.scoringType" is set to "<score_type>"
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
+    And the response property "$.message" contains a user friendly text
+    
+    Examples:
+    | score_type    |
+    | gaugeMetric |
+    | veritasIndex  |
+    
+  @retrieve_scoring_422.07_id_document_required_three_legged
+  Scenario: Id Document required with 3-legged token
+    Given the header "Authorization" is set to a valid access token identifying a phone number
+    And the request body property "$.idDocument" is not included
+    And the request body property "$.phoneNumber" is not included
+    And the Telco Operator business rules require idDocument for the identified phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
     And the response property "$.message" contains a user friendly text
+
+  @retrieve_scoring_422.08_id_document_required_two_legged
+  Scenario: Id Document required with 2-legged token
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+    And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
+    And the request body property "$.idDocument" is not included
+    And the Telco Operator business rules require idDocument for the provided phone number
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.message" contains a user friendly text
+
+  @retrieve_scoring_422.09_id_document_required_three_legged_with_scoring_type
+  Scenario Outline: Id Document required with 3-legged token and scoringType
+    Given the header "Authorization" is set to a valid access token identifying a phone number
+    And the request body property "$.idDocument" is not included
+    And the request body property "$.scoringType" is set to "<score_type>"
+    And the request body property "$.phoneNumber" is not included
+    And the Telco Operator business rules require idDocument for the identified phone number
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.message" contains a user friendly text
+  
+    Examples:
+    | score_type    |
+    | gaugeMetric |
+    | veritasIndex  |
+
+  @retrieve_scoring_422.10_id_document_required_two_legged_with_scoring_type
+  Scenario Outline: Id Document required with 2-legged token and scoringType
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+    And the request body property "$.phoneNumber" is set to a valid phone number existing in the environment
+    And the request body property "$.idDocument" is not included
+    And the request body property "$.scoringType" is set to "<score_type>"
+    And the Telco Operator business rules require idDocument for the provided phone number
+    When the request "retrieveScoring" is sent
+    Then the response status code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.message" contains a user friendly text
+  
+    Examples:
+    | score_type    |
+    | gaugeMetric |
+    | veritasIndex  |
 
   @retrieve_scoring_C02.03_unnecessary_phone_number
   Scenario: Phone number not to be included when it can be deduced from the access token

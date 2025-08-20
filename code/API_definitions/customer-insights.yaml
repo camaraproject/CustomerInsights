@@ -111,13 +111,13 @@ paths:
         It also allows to select the type of the Scoring scale measurement.
       operationId: retrieveScoring
       parameters:
-        - $ref: '#/components/parameters/x-correlator'
+        - $ref: "#/components/parameters/x-correlator"
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScoringRequest'
+              $ref: "#/components/schemas/ScoringRequest"
             examples:
               INPUT_GAUGE_METRIC:
                 summary: Gauge Metric
@@ -168,15 +168,15 @@ paths:
                   phoneNumber: "+556253423432"
                   scoringType: veritasIndex
       responses:
-        '200':
+        "200":
           description: Scoring result.
           headers:
             x-correlator:
-              $ref: '#/components/headers/x-correlator'
+              $ref: "#/components/headers/x-correlator"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScoringResponse'
+                $ref: "#/components/schemas/ScoringResponse"
               examples:
                 GAUGE_METRIC:
                   summary: Gauge Metric Response
@@ -190,18 +190,18 @@ paths:
                   value:
                     scoringType: veritasIndex
                     scoringValue: 4
-        '400':
-          $ref: '#/components/responses/Generic400'
-        '401':
-          $ref: '#/components/responses/Generic401'
-        '403':
-          $ref: '#/components/responses/Generic403'
-        '404':
-          $ref: '#/components/responses/Generic404'
-        '422':
-          $ref: '#/components/responses/Generic422'
-        '429':
-          $ref: '#/components/responses/Generic429'
+        "400":
+          $ref: "#/components/responses/Generic400"
+        "401":
+          $ref: "#/components/responses/Generic401"
+        "403":
+          $ref: "#/components/responses/Generic403"
+        "404":
+          $ref: "#/components/responses/Generic404"
+        "422":
+          $ref: "#/components/responses/Generic422"
+        "429":
+          $ref: "#/components/responses/Generic429"
 components:
   securitySchemes:
     openId:
@@ -234,9 +234,9 @@ components:
         idDocument:
           type: string
           description: |-
-           Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
+            Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
         phoneNumber:
-          $ref: '#/components/schemas/PhoneNumber'
+          $ref: "#/components/schemas/PhoneNumber"
         scoringType:
           type: string
           description: |-
@@ -274,26 +274,26 @@ components:
     ErrorInfo:
       type: object
       required:
+        - message
         - status
         - code
-        - message
       properties:
-        status:
-          type: integer
-          description: HTTP status code returned along with this error response.
-        code:
-          type: string
-          description: Code given to this error.
         message:
           type: string
-          description: Detailed error description.
+          description: A human-readable description of what the event represents
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: A human-readable code to describe the error
   responses:
     Generic400:
       description: |-
         Problem with the client request.
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
