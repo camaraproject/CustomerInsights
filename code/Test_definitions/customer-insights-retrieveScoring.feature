@@ -239,11 +239,11 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
-    
+
     Examples:
-    | score_type    |
-    | gaugeMetric |
-    | veritasIndex  |
+      | score_type   |
+      | gaugeMetric  |
+      | veritasIndex |
 
   @retrieve_scoring_422.06_id_document_not_supported_two_legged_with_scoring_type
   Scenario Outline: Id Document not supported with 2-legged token and scoringType
@@ -256,12 +256,12 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
-    
+
     Examples:
-    | score_type    |
-    | gaugeMetric |
-    | veritasIndex  |
-    
+    | score_type   |
+    | gaugeMetric  |
+    | veritasIndex |
+
   @retrieve_scoring_422.07_id_document_required_three_legged
   Scenario: Id Document required with 3-legged token
     Given the header "Authorization" is set to a valid access token identifying a phone number
@@ -298,11 +298,11 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
     And the response property "$.message" contains a user friendly text
-  
+
     Examples:
-    | score_type    |
-    | gaugeMetric |
-    | veritasIndex  |
+      | score_type   |
+      | gaugeMetric  |
+      | veritasIndex |
 
   @retrieve_scoring_422.10_id_document_required_two_legged_with_scoring_type
   Scenario Outline: Id Document required with 2-legged token and scoringType
@@ -316,11 +316,11 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
     And the response property "$.message" contains a user friendly text
-  
+
     Examples:
-    | score_type    |
-    | gaugeMetric |
-    | veritasIndex  |
+      | score_type   |
+      | gaugeMetric  |
+      | veritasIndex |
 
   @retrieve_scoring_C02.03_unnecessary_phone_number
   Scenario: Phone number not to be included when it can be deduced from the access token
