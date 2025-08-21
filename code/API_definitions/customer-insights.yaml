@@ -44,7 +44,7 @@ info:
     The API provides the following endpoint:
       
       - An operation to retrieve Scoring information.        
- 
+
     # Authorization and authentication
 
     The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
@@ -94,7 +94,7 @@ servers:
         default: http://localhost:9091
         description: API root, defined by the service provider
 tags:
-  - name: Scoring 
+  - name: Scoring
     description: Operations to retrieve Scoring information.
 paths:
   /scoring/retrieve:
@@ -107,17 +107,17 @@ paths:
       summary: Retrieves Scoring information
       description: >-
         Retrieves Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
-        
+
         It also allows to select the type of the Scoring scale measurement.
       operationId: retrieveScoring
       parameters:
-        - $ref: '#/components/parameters/x-correlator'
+        - $ref: "#/components/parameters/x-correlator"
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScoringRequest'
+              $ref: "#/components/schemas/ScoringRequest"
             examples:
               INPUT_GAUGE_METRIC:
                 summary: Gauge Metric
@@ -168,15 +168,15 @@ paths:
                   phoneNumber: "+556253423432"
                   scoringType: veritasIndex
       responses:
-        '200':
+        "200":
           description: Scoring result.
           headers:
             x-correlator:
-              $ref: '#/components/headers/x-correlator'
+              $ref: "#/components/headers/x-correlator"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScoringResponse'
+                $ref: "#/components/schemas/ScoringResponse"
               examples:
                 GAUGE_METRIC:
                   summary: Gauge Metric Response
@@ -190,18 +190,18 @@ paths:
                   value:
                     scoringType: veritasIndex
                     scoringValue: 4
-        '400':
-          $ref: '#/components/responses/Generic400'
-        '401':
-          $ref: '#/components/responses/Generic401'
-        '403':
-          $ref: '#/components/responses/Generic403'
-        '404':
-          $ref: '#/components/responses/Generic404'
-        '422':
-          $ref: '#/components/responses/Generic422'
-        '429':
-          $ref: '#/components/responses/Generic429'
+        "400":
+          $ref: "#/components/responses/Generic400"
+        "401":
+          $ref: "#/components/responses/Generic401"
+        "403":
+          $ref: "#/components/responses/Generic403"
+        "404":
+          $ref: "#/components/responses/Generic404"
+        "422":
+          $ref: "#/components/responses/Generic422"
+        "429":
+          $ref: "#/components/responses/Generic429"
 components:
   securitySchemes:
     openId:
@@ -229,14 +229,14 @@ components:
       description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
       pattern: '^\+[1-9][0-9]{4,14}$'
     ScoringRequest:
-      type: object      
+      type: object
       properties:
-        idDocument:          
+        idDocument:
           type: string
           description: |-
-           Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
+            Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
         phoneNumber:
-          $ref: '#/components/schemas/PhoneNumber'
+          $ref: "#/components/schemas/PhoneNumber"
         scoringType:
           type: string
           description: |-
@@ -260,11 +260,11 @@ components:
           type: string
           description: |-
             Scoring measurement system.
-            
+
             Allowed values are:
 
             * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
-            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)        
+            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
           enum:
             - gaugeMetric
             - veritasIndex
@@ -274,26 +274,26 @@ components:
     ErrorInfo:
       type: object
       required:
+        - message
         - status
         - code
-        - message
       properties:
-        status:
-          type: integer
-          description: HTTP status code returned along with this error response.
-        code:
-          type: string
-          description: Code given to this error.
         message:
           type: string
-          description: Detailed error description.
+          description: A human-readable description of what the event represents
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: A human-readable code to describe the error
   responses:
     Generic400:
       description: |-
         Problem with the client request.
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
@@ -309,7 +309,7 @@ components:
                       - INVALID_ARGUMENT
           examples:
             InvalidArgument:
-              description:  Invalid Argument. Generic Syntax Exception
+              description: Invalid Argument. Generic Syntax Exception
               value:
                 status: 400
                 code: INVALID_ARGUMENT
