@@ -258,9 +258,9 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     And the response property "$.message" contains a user friendly text
 
     Examples:
-    | score_type   |
-    | gaugeMetric  |
-    | veritasIndex |
+      | score_type   |
+      | gaugeMetric  |
+      | veritasIndex |
 
   @retrieve_scoring_422.07_id_document_required_three_legged
   Scenario: Id Document required with 3-legged token
