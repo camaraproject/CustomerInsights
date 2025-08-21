@@ -10,7 +10,7 @@ info:
         Two different scales are considered for the Scoring:
 
         * **GaugeMetric**: Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
-          
+
                   800-850: Exceptional, very low risk.
 
                   740-799: Very Good, low risk.
@@ -36,14 +36,14 @@ info:
                   18-19    DDD
 
     # API Functionality
-       
+
     This API allows to retrieve the Scoring information of a user within the operator.
 
     # Resources and Operations overview
 
     The API provides the following endpoint:
-      
-      - An operation to retrieve Scoring information.        
+
+      - An operation to retrieve Scoring information.
 
     # Authorization and authentication
 
