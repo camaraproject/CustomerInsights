@@ -10,7 +10,7 @@ info:
         Two different scales are considered for the Scoring:
 
         * **GaugeMetric**: Scoring scale that ranges from index 850 (lowest risk) to index 300 (highest risk), thus the higher the value of the index, the lower the risk it represents. This numerical scale is based on the globally recognized FICO score system. Values meaning is as follows:
-          
+
                   800-850: Exceptional, very low risk.
 
                   740-799: Very Good, low risk.
@@ -36,14 +36,14 @@ info:
                   18-19    DDD
 
     # API Functionality
-       
+
     This API allows to retrieve the Scoring information of a user within the operator.
 
     # Resources and Operations overview
 
     The API provides the following endpoint:
-      
-      - An operation to retrieve Scoring information.        
+
+      - An operation to retrieve Scoring information.
 
     # Authorization and authentication
 
@@ -409,7 +409,7 @@ components:
         - An identifier is not included in the request and the device or phone number identification cannot be derived from the 3-legged access token ("code": "MISSING_IDENTIFIER","message": "The phone number cannot be identified.")
         - An explicit identifier is provided when a device or phone number has already been identified from the access token ("code": "UNNECESSARY_IDENTIFIER","message": "The phone number is already identified by the access token.")
         - Provided `scoringType` value is not supported. (`"code": "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED","message": "Indicated parameter scoringType is not supported."`)
-        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH","message": "Provided idDocument is not consistent with the phone number."`)
+        - Provided `idDocument` is not consistent with the phone number. (`"code": "CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS","message": "The request contains invalid data."`)
         - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
         - Required `idDocument` field and it is not provided. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation."`)
       headers:
@@ -431,7 +431,7 @@ components:
                       - MISSING_IDENTIFIER
                       - UNNECESSARY_IDENTIFIER
                       - CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
-                      - CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
+                      - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS
                       - CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
                       - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED
           examples:
@@ -459,12 +459,12 @@ components:
                 status: 422
                 code: CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED
                 message: Indicated parameter `scoringType` is not supported.
-            GENERIC_422_IDENTIFIERS_MISMATCH:
-              description: Error when provided `idDocument` is not consistent with the phone number.
+            GENERIC_422_INVALID_IDENTIFIERS:
+              description: The request contains invalid data identifying customer
               value:
                 status: 422
-                code: CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH
-                message: Provided `idDocument` is not consistent with the phone number.
+                code: CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS
+                message: The request contains invalid data.
             GENERIC_422_ID_DOCUMENT_NOT_SUPPORTED:
               description: Error when `idDocument` field is not supported
               value:
