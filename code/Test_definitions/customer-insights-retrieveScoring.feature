@@ -203,7 +203,7 @@ Feature: CAMARA Customer Insights API, v0.2.0-rc.1 - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.IDENTIFIERS_MISMATCH"
+    And the response property "$.code" is "CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS"
     And the response property "$.message" contains a user friendly text
 
   @retrieve_scoring_422.03_id_document_not_supported_three_legged
