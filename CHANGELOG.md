@@ -31,12 +31,7 @@ The API definition(s) are based on
 ## Customer Insights v0.2.0
 
 **Customer Insights v0.2.0 is the first public release version for v0.2.0 of the Customer Insights API.**
-- **This version contains changes compared to v0.2.0:**
-  - Addition of `404 - IDENTIFIER_NOT_FOUND`
-  - Removal of `401 - AUTHENTICATION_REQUIRED`
-  - New pattern for `x-correlator`
-  - Addition of a new section `# Additional CAMARA error responses` in `info.description` field
-  - Addition of Algorithm Model Definiton documentation
+- **This version contains changes compared to v0.1.0.**
 
 - API definition **with inline documentation**:
   - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r2.2/code/API_definitions/customer-insights.yaml&nocors)

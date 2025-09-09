@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: |-
-    Provides a risk index based on the individual's profile owned by a Telco Operator.
+    Allows the API consumer to retrieve a risk index based on the individual's profile owned by a Telco Operator.
 
     # Relevant Definitions and concepts
 
@@ -274,19 +274,19 @@ components:
     ErrorInfo:
       type: object
       required:
-        - message
         - status
         - code
+        - message
       properties:
-        message:
-          type: string
-          description: A human-readable description of what the event represents
         status:
           type: integer
           description: HTTP response status code
         code:
           type: string
           description: A human-readable code to describe the error
+        message:
+          type: string
+          description: A human-readable description of what the event represents
   responses:
     Generic400:
       description: |-
