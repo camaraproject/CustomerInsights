@@ -31,7 +31,7 @@ Sandbox API Repository to describe, develop, document, and test the CustomerInsi
 <!-- For changes see [CHANGELOG.md](https://github.com/camaraproject/CustomerInsights/blob/main/CHANGELOG.md) -->
 * Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. **For best results, use the latest available release**.
 
-* **The release [r2.2](https://github.com/camaraproject/CustomerInsights/releases/tag/r2.2) for the Customer Insights APIs is available.**
+* **NEW public release [r2.2](https://github.com/camaraproject/CustomerInsights/releases/tag/r2.2) for the Customer Insights APIs is available.**
 <br>This is a public release.
 
 * The release **r2.2** is available in [r2.2](https://github.com/camaraproject/CustomerInsights/tree/r2.2), and includes the following APIs:
