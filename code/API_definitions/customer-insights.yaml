@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: |-
-    Provides a risk index based on the individual's profile owned by a Telco Operator.
+    Allows the API consumer to retrieve a risk index based on the individual's profile owned by a Telco Operator.
 
     # Relevant Definitions and concepts
 
@@ -78,7 +78,7 @@ info:
     # Further info and support
 
     (FAQs will be added in a later version of the documentation)
-  version: 0.2.0-rc.1
+  version: 0.2.0
   title: Customer Insights
   license:
     name: Apache 2.0
@@ -88,7 +88,7 @@ externalDocs:
   description: Product documentation at CAMARA
   url: https://github.com/camaraproject/CustomerInsights
 servers:
-  - url: "{apiRoot}/customer-insights/v0.2rc1"
+  - url: "{apiRoot}/customer-insights/v0.2"
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -274,19 +274,19 @@ components:
     ErrorInfo:
       type: object
       required:
-        - message
         - status
         - code
+        - message
       properties:
-        message:
-          type: string
-          description: A human-readable description of what the event represents
         status:
           type: integer
           description: HTTP response status code
         code:
           type: string
           description: A human-readable code to describe the error
+        message:
+          type: string
+          description: A human-readable description of what the event represents
   responses:
     Generic400:
       description: |-
