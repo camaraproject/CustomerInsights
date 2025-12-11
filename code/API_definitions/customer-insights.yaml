@@ -88,7 +88,7 @@ externalDocs:
   description: Product documentation at CAMARA
   url: https://github.com/camaraproject/CustomerInsights
 servers:
-  - url: "{apiRoot}/customer-insights/v0.2"
+  - url: "{apiRoot}/customer-insights/vwip"
     variables:
       apiRoot:
         default: http://localhost:9091
