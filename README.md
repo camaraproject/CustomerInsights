@@ -22,26 +22,25 @@ Sandbox API Repository to describe, develop, document, and test the CustomerInsi
 * Describe, develop, document, and test the APIs
 * Started: October 2024
 
+<!-- CAMARA:RELEASE-INFO:START -->
+<!-- The following section is automatically maintained by the CAMARA project-administration tooling: https://github.com/camaraproject/project-administration -->
+
 ## Release Information
 
-<!-- Optional: an explicit listing of the latest (pre-)release with additional information, e.g. links to the API definitions -->
-<!-- In addition use/uncomment one or multiple the following alternative options when becoming applicable -->
-<!-- Pre-releases of this sub project are available in https://github.com/camaraproject/CustomerInsights/releases -->
-<!-- The latest public release is available here: https://github.com/camaraproject/CustomerInsights/releases/latest -->
-<!-- For changes see [CHANGELOG.md](https://github.com/camaraproject/CustomerInsights/blob/main/CHANGELOG.md) -->
-* Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. **For best results, use the latest available release**.
+> [!NOTE]
+> Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. **For best results, use the latest available release**.
 
-* **NEW public release [r2.2](https://github.com/camaraproject/CustomerInsights/releases/tag/r2.2) for the Customer Insights APIs is available.**
-<br>This is a public release.
-
-* The release **r2.2** is available in [r2.2](https://github.com/camaraproject/CustomerInsights/tree/r2.2), and includes the following APIs:
-- API name: Customer Insights - API Definition v0.2.0 with inline documentation:
-  - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r2.2/code/API_definitions/customer-insights.yaml&nocors)
-  - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r2.2/code/API_definitions/customer-insights.yaml)
-  - OpenAPI [YAML spec file](https://github.com/camaraproject/CustomerInsights/blob/r2.2/code/API_definitions/customer-insights.yaml)
-
-* Other releases of this sub project are available in [CustomerInsights Releases](https://github.com/camaraproject/CustomerInsights/releases)
+* **NEW**: The latest public release is [r2.2](https://github.com/camaraproject/CustomerInsights/releases/tag/r2.2) (Fall25), with the following API versions:
+  * **customer-insights v0.2.0**
+  [[YAML]](https://github.com/camaraproject/CustomerInsights/blob/r2.2/code/API_definitions/customer-insights.yaml)
+  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r2.2/code/API_definitions/customer-insights.yaml&nocors)
+  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r2.2/code/API_definitions/customer-insights.yaml)
+* The latest public release is always available here: https://github.com/camaraproject/CustomerInsights/releases/latest
+* Other releases of this repository are available in https://github.com/camaraproject/CustomerInsights/releases
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/CustomerInsights/blob/main/CHANGELOG.md)
+
+_The above section is automatically synchronized by CAMARA project-administration._
+<!-- CAMARA:RELEASE-INFO:END -->
 
 ## Contributing
 * Meetings are held virtually
