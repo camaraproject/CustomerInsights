@@ -70,9 +70,9 @@ info:
     # Additional Information on Error scenarios
 
     This section provides valuable information about the scope of some exceptions in order to provide support for the API implementation.
-    
+
     `422 - SERVICE_NOT_APPLICABLE`
-    
+
     This error code is used when the service cannot be provided. Applicable scenarios include, but are not limited to, the following:
       - The API is invoked for a subscription, identified via access token or phoneNumber, that is not supported or not commercially allowed by the API Provider.
       - The API is invoked for a valid subscription, identified via access token or phoneNumber, but the service cannot be provided for that specific subscription. For instance, this can be the case when the subscription has not enough historical data to provide a reliable Scoring result.
