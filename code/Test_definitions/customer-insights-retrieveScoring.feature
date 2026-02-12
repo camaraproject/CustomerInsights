@@ -106,7 +106,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
 
   @retrieve_scoring_C02.01_phone_number_not_schema_compliant
   Scenario: Phone number value does not comply with the schema
-    Given the header "Authorization" is set to a valid access which does not identify a single phone number
+    Given the header "Authorization" is set to a valid access token which does not identify a single phone number
     And the request body property "$.phoneNumber" does not comply with the OAS schema at "/components/schemas/PhoneNumber"
     When the request "retrieveScoring" is sent
     Then the response status code is 400
@@ -164,8 +164,11 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
 
   @retrieve_scoring_404.01_idDocument_not_found
   Scenario: idDocument not found
+    # To test this, a 3-legged access token is needed, just because if not it triggers test "@retrieve_scoring_C02.04_missing_phone_number"
+    # Scenario applicable for a Telco Operator that requires `idDocument` for scoring retrieval.
+    # In case `idDocument` is not a required field for the Telco Operator, applicable scenarios are "@retrieve_scoring_422.03_id_document_not_supported_three_legged" and "@retrieve_scoring_422.04_id_document_not_supported_two_legged".
     Given the header "Authorization" is set to a valid access token identifying a phone number
-    And the request body property "$.idDocument" is set to a valid value not existing in the environment
+    And the request body property "$.idDocument" is required and set to a valid value not existing in the environment
     When the request "retrieveScoring" is sent
     Then the response status code is 404
     And the response property "$.status" is 404
@@ -203,7 +206,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS"
+    And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
 
   @retrieve_scoring_422.03_id_document_not_supported_three_legged
@@ -271,7 +274,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
 
   @retrieve_scoring_422.08_id_document_required_two_legged
@@ -283,7 +286,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
 
   @retrieve_scoring_422.09_id_document_required_three_legged_with_scoring_type
@@ -296,7 +299,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
 
     Examples:
@@ -314,7 +317,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 422
     And the response property "$.status" is 422
-    And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED"
+    And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
 
     Examples:
