@@ -275,6 +275,12 @@ components:
         scoringValue:
           type: integer
           description: Result of the Scoring analysis expressed in the measure indicated in the `scoringType` field.
+          format: int32
+          oneOf:
+            - minimum: 0
+              maximum: 19
+            - minimum: 300
+              maximum: 850
     ErrorInfo:
       type: object
       description: A structured error response providing details about a failed request, including the HTTP status code, an error code, and a human-readable message
