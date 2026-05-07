@@ -242,8 +242,17 @@ components:
             - gaugeMetric
             - veritasIndex
     ScoringResponse:
+      oneOf:
+        - $ref: "#/components/schemas/GaugeMetricResponse"
+        - $ref: "#/components/schemas/VeritasIndexResponse"
+      discriminator:
+        propertyName: scoringType
+        mapping:
+          gaugeMetric: "#/components/schemas/GaugeMetricResponse"
+          veritasIndex: "#/components/schemas/VeritasIndexResponse"
+    GaugeMetricResponse:
       type: object
-      description: Scoring information based on the individual's profile owned by a Telco Operator.
+      description: Scoring information with Gauge Metric scale based on the individual's profile owned by a Telco Operator.
       required:
         - scoringType
         - scoringValue
@@ -253,22 +262,36 @@ components:
           description: |-
             Scoring measurement system.
 
-            Allowed values are:
-
-            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
-            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+            `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
           enum:
             - gaugeMetric
+        scoringValue:
+          type: integer
+          description: Result of the Scoring analysis using Gauge Metric scale (300-850).
+          format: int32
+          minimum: 300
+          maximum: 850
+    VeritasIndexResponse:
+      type: object
+      description: Scoring information with Veritas Index scale based on the individual's profile owned by a Telco Operator.
+      required:
+        - scoringType
+        - scoringValue
+      properties:
+        scoringType:
+          type: string
+          description: |-
+            Scoring measurement system.
+
+            `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+          enum:
             - veritasIndex
         scoringValue:
           type: integer
-          description: Result of the Scoring analysis expressed in the measure indicated in the `scoringType` field.
+          description: Result of the Scoring analysis using Veritas Index scale (0-19).
           format: int32
-          oneOf:
-            - minimum: 0
-              maximum: 19
-            - minimum: 300
-              maximum: 850
+          minimum: 0
+          maximum: 19
   responses:
     InvalidArgument400:
       description: |-
