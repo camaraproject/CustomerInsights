@@ -243,6 +243,7 @@ components:
             - gaugeMetric
             - veritasIndex
     ScoringResponse:
+      description: Scoring information based on the individual's profile owned by a Telco Operator.
       oneOf:
         - $ref: "#/components/schemas/GaugeMetricResponse"
         - $ref: "#/components/schemas/VeritasIndexResponse"
