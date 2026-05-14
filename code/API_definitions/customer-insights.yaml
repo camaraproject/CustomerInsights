@@ -220,6 +220,7 @@ components:
       $ref: "../common/CAMARA_common.yaml#/components/securitySchemes/openId"
   schemas:
     ScoringRequest:
+      descritption: Input parameters for the Scoring request, identifying the individual whose credit risk score is to be retrieved.
       type: object
       properties:
         idDocument:
