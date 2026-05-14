@@ -104,7 +104,7 @@ servers:
     variables:
       apiRoot:
         default: http://localhost:9091
-        description: API root, defined by the service provider
+        description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
 tags:
   - name: Scoring
     description: Operations to retrieve Scoring information.
@@ -123,7 +123,7 @@ paths:
         It also allows to select the type of the Scoring scale measurement.
       operationId: retrieveScoring
       parameters:
-        - $ref: "#/components/parameters/x-correlator"
+        - $ref: "../common/CAMARA_common.yaml#/components/parameters/x-correlator"
       requestBody:
         required: true
         content:
@@ -184,7 +184,7 @@ paths:
           description: Scoring result.
           headers:
             x-correlator:
-              $ref: "#/components/headers/x-correlator"
+              $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
           content:
             application/json:
               schema:
@@ -203,47 +203,24 @@ paths:
                     scoringType: veritasIndex
                     scoringValue: 4
         "400":
-          $ref: "#/components/responses/Generic400"
+          $ref: "#/components/responses/InvalidArgument400"
         "401":
-          $ref: "#/components/responses/Generic401"
+          $ref: "../common/CAMARA_common.yaml#/components/responses/Generic401"
         "403":
-          $ref: "#/components/responses/Generic403"
+          $ref: "#/components/responses/PermissionDenied403"
         "404":
-          $ref: "#/components/responses/Generic404"
+          $ref: "../common/CAMARA_common.yaml#/components/responses/Generic404"
         "422":
-          $ref: "#/components/responses/Generic422"
+          $ref: "#/components/responses/UnprocessableContent422"
         "429":
-          $ref: "#/components/responses/Generic429"
+          $ref: "#/components/responses/RequestLimitReached429"
 components:
   securitySchemes:
     openId:
-      type: openIdConnect
-      openIdConnectUrl: https://example.com/.well-known/openid-configuration
-  headers:
-    x-correlator:
-      description: Correlation id for the different services
-      schema:
-        $ref: "#/components/schemas/XCorrelator"
-  parameters:
-    x-correlator:
-      name: x-correlator
-      in: header
-      description: Correlation id for the different services
-      schema:
-        $ref: "#/components/schemas/XCorrelator"
+      $ref: "../common/CAMARA_common.yaml#/components/securitySchemes/openId"
   schemas:
-    XCorrelator:
-      type: string
-      pattern: ^[a-zA-Z0-9-_:;.\/<>{}]{0,256}$
-      maxLength: 256
-      example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
-    PhoneNumber:
-      type: string
-      description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
-      pattern: '^\+[1-9][0-9]{4,14}$'
-      maxLength: 16
-      example: "+123456789"
     ScoringRequest:
+      description: Input parameters for the Scoring request, identifying the individual whose credit risk score is to be retrieved.
       type: object
       properties:
         idDocument:
@@ -252,7 +229,7 @@ components:
             Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
           maxLength: 30
         phoneNumber:
-          $ref: "#/components/schemas/PhoneNumber"
+          $ref: "../common/CAMARA_common.yaml#/components/schemas/PhoneNumber"
         scoringType:
           type: string
           description: |-
@@ -266,8 +243,18 @@ components:
             - gaugeMetric
             - veritasIndex
     ScoringResponse:
-      type: object
       description: Scoring information based on the individual's profile owned by a Telco Operator.
+      oneOf:
+        - $ref: "#/components/schemas/GaugeMetricResponse"
+        - $ref: "#/components/schemas/VeritasIndexResponse"
+      discriminator:
+        propertyName: scoringType
+        mapping:
+          gaugeMetric: "#/components/schemas/GaugeMetricResponse"
+          veritasIndex: "#/components/schemas/VeritasIndexResponse"
+    GaugeMetricResponse:
+      type: object
+      description: Scoring information with Gauge Metric scale based on the individual's profile owned by a Telco Operator.
       required:
         - scoringType
         - scoringValue
@@ -277,56 +264,48 @@ components:
           description: |-
             Scoring measurement system.
 
-            Allowed values are:
-
-            * `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
-            * `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+            `gaugeMetric`: ranges from index 850 (lowest risk) to index 300 (highest risk)
           enum:
             - gaugeMetric
+        scoringValue:
+          type: integer
+          description: Result of the Scoring analysis using Gauge Metric scale (300-850).
+          format: int32
+          minimum: 300
+          maximum: 850
+    VeritasIndexResponse:
+      type: object
+      description: Scoring information with Veritas Index scale based on the individual's profile owned by a Telco Operator.
+      required:
+        - scoringType
+        - scoringValue
+      properties:
+        scoringType:
+          type: string
+          description: |-
+            Scoring measurement system.
+
+            `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
+          enum:
             - veritasIndex
         scoringValue:
           type: integer
-          description: Result of the Scoring analysis expressed in the measure indicated in the `scoringType` field.
+          description: Result of the Scoring analysis using Veritas Index scale (0-19).
           format: int32
-          oneOf:
-            - minimum: 0
-              maximum: 19
-            - minimum: 300
-              maximum: 850
-    ErrorInfo:
-      type: object
-      description: A structured error response providing details about a failed request, including the HTTP status code, an error code, and a human-readable message
-      required:
-        - status
-        - code
-        - message
-      properties:
-        status:
-          type: integer
-          format: int32
-          minimum: 100
-          maximum: 599
-          description: HTTP response status code
-        code:
-          type: string
-          maxLength: 96
-          description: A human-readable code to describe the error
-        message:
-          type: string
-          maxLength: 512
-          description: A human-readable description of what the event represents
+          minimum: 0
+          maximum: 19
   responses:
-    Generic400:
+    InvalidArgument400:
       description: |-
         Problem with the client request.
       headers:
         x-correlator:
-          $ref: "#/components/headers/x-correlator"
+          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
+              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
               - type: object
                 properties:
                   status:
@@ -336,47 +315,22 @@ components:
                     enum:
                       - INVALID_ARGUMENT
           examples:
-            InvalidArgument:
+            GENERIC_400_INVALID_ARGUMENT:
               description: Invalid Argument. Generic Syntax Exception
               value:
                 status: 400
                 code: INVALID_ARGUMENT
-                message: Client specified an invalid argument, request body or query param
-    Generic401:
-      description: Unauthorized
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 401
-                  code:
-                    enum:
-                      - UNAUTHENTICATED
-          examples:
-            GENERIC_401_UNAUTHENTICATED:
-              description: Request cannot be authenticated and a new authentication is required
-              value:
-                status: 401
-                code: UNAUTHENTICATED
-                message: Request not authenticated due to missing, invalid, or expired credentials. A new authentication is required.
-    Generic403:
+                message: Client specified an invalid argument, request body or query param.
+    PermissionDenied403:
       description: Forbidden
       headers:
         x-correlator:
-          $ref: "#/components/headers/x-correlator"
+          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
+              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
               - type: object
                 properties:
                   status:
@@ -392,43 +346,7 @@ components:
                 status: 403
                 code: PERMISSION_DENIED
                 message: Client does not have sufficient permissions to perform this action.
-    Generic404:
-      description: |-
-        Not found
-
-        In addition to regular NOT_FOUND scenario, another scenarios may exist:
-        - Phone Number not found ("code": "IDENTIFIER_NOT_FOUND","message": "phoneNumber not found.").
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 404
-                  code:
-                    enum:
-                      - NOT_FOUND
-                      - IDENTIFIER_NOT_FOUND
-          examples:
-            GENERIC_404_NOT_FOUND:
-              description: Resource is not found
-              value:
-                status: 404
-                code: NOT_FOUND
-                message: The specified resource is not found.
-            GENERIC_404_IDENTIFIER_NOT_FOUND:
-              description: Some identifier cannot be matched to a device. In this API it refers to a phoneNumber.
-              value:
-                status: 404
-                code: IDENTIFIER_NOT_FOUND
-                message: phoneNumber not found.
-    Generic422:
+    UnprocessableContent422:
       description: |-
         Unprocessable Content
 
@@ -440,12 +358,12 @@ components:
         - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
       headers:
         x-correlator:
-          $ref: "#/components/headers/x-correlator"
+          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
+              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
               - type: object
                 properties:
                   status:
@@ -489,16 +407,16 @@ components:
                 status: 422
                 code: CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED
                 message: Indicated parameter `idDocument` is not supported.
-    Generic429:
+    RequestLimitReached429:
       description: Too Many Requests
       headers:
         x-correlator:
-          $ref: "#/components/headers/x-correlator"
+          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
+              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
               - type: object
                 properties:
                   status:
