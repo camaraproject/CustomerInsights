@@ -102,17 +102,14 @@ info:
     # Further info and support
 
     (FAQs will be added in a later version of the documentation)
-  version: wip
+  version: 0.3.0-rc.1
   title: Customer Insights
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-camara-commonalities: wip
-externalDocs:
-  description: Product documentation at CAMARA
-  url: https://github.com/camaraproject/CustomerInsights
+  x-camara-commonalities: 0.8.0
 servers:
-  - url: "{apiRoot}/customer-insights/vwip"
+  - url: '{apiRoot}/customer-insights/v0.3rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -120,6 +117,9 @@ servers:
 tags:
   - name: Scoring
     description: Operations to retrieve Scoring information.
+externalDocs:
+  description: Product documentation at CAMARA
+  url: https://github.com/camaraproject/CustomerInsights
 paths:
   /scoring/retrieve:
     post:
@@ -129,19 +129,18 @@ paths:
       tags:
         - Scoring
       summary: Retrieves Scoring information
-      description: >-
+      description: |-
         Retrieves Scoring information, for the user associated with the provided `idDocument`, `phoneNumber` or the combination of both parameters.
-
         It also allows to select the type of the Scoring scale measurement.
       operationId: retrieveScoring
       parameters:
-        - $ref: "../common/CAMARA_common.yaml#/components/parameters/x-correlator"
+        - $ref: '#/components/parameters/x-correlator'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScoringRequest"
+              $ref: '#/components/schemas/ScoringRequest'
             examples:
               INPUT_GAUGE_METRIC:
                 summary: Gauge Metric
@@ -157,50 +156,50 @@ paths:
                 summary: Gauge Metric with phoneNumber
                 description: Gauge Metric score request, with phoneNumber. Default two-legged access mode for Gauge Metric
                 value:
-                  phoneNumber: "+556253423432"
+                  phoneNumber: '+556253423432'
                   scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_PHONENUMBER:
                 summary: Veritas Index with phoneNumber
                 description: Veritas Index score request, with phoneNumber. Default two-legged access mode for Veritas index
                 value:
-                  phoneNumber: "+556253423432"
+                  phoneNumber: '+556253423432'
                   scoringType: veritasIndex
               INPUT_GAUGE_METRIC_ID_DOCUMENT:
                 summary: Gauge Metric with idDocument
                 description: Gauge Metric score request, with idDocument.
                 value:
-                  idDocument: "987654321"
+                  idDocument: '987654321'
                   scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_ID_DOCUMENT:
                 summary: Veritas Index with idDocument
                 description: Veritas Index score request, with idDocument.
                 value:
-                  idDocument: "987654321"
+                  idDocument: '987654321'
                   scoringType: veritasIndex
               INPUT_GAUGE_METRIC_PHONENUMBER_ID_DOCUMENT:
                 summary: Gauge Metric with phoneNumber and idDocument
                 description: Gauge Metric score request, with phoneNumber and idDocument.
                 value:
-                  idDocument: "987654321"
-                  phoneNumber: "+556253423432"
+                  idDocument: '987654321'
+                  phoneNumber: '+556253423432'
                   scoringType: gaugeMetric
               INPUT_VERITAS_INDEX_PHONENUMBER_ID_DOCUMENT:
                 summary: Veritas Index with phoneNumber and idDocument
                 description: Veritas Index score request, with phoneNumber and idDocument.
                 value:
-                  idDocument: "987654321"
-                  phoneNumber: "+556253423432"
+                  idDocument: '987654321'
+                  phoneNumber: '+556253423432'
                   scoringType: veritasIndex
       responses:
-        "200":
+        '200':
           description: Scoring result.
           headers:
             x-correlator:
-              $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+              $ref: '#/components/headers/x-correlator'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoringResponse"
+                $ref: '#/components/schemas/ScoringResponse'
               examples:
                 GAUGE_METRIC:
                   summary: Gauge Metric Response
@@ -214,22 +213,24 @@ paths:
                   value:
                     scoringType: veritasIndex
                     scoringValue: 4
-        "400":
-          $ref: "#/components/responses/InvalidArgument400"
-        "401":
-          $ref: "../common/CAMARA_common.yaml#/components/responses/Generic401"
-        "403":
-          $ref: "#/components/responses/PermissionDenied403"
-        "404":
-          $ref: "../common/CAMARA_common.yaml#/components/responses/Generic404"
-        "422":
-          $ref: "#/components/responses/UnprocessableContent422"
-        "429":
-          $ref: "#/components/responses/RequestLimitReached429"
+        '400':
+          $ref: '#/components/responses/InvalidArgument400'
+        '401':
+          $ref: '#/components/responses/Generic401'
+        '403':
+          $ref: '#/components/responses/PermissionDenied403'
+        '404':
+          $ref: '#/components/responses/Generic404'
+        '422':
+          $ref: '#/components/responses/UnprocessableContent422'
+        '429':
+          $ref: '#/components/responses/RequestLimitReached429'
 components:
   securitySchemes:
     openId:
-      $ref: "../common/CAMARA_common.yaml#/components/securitySchemes/openId"
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+      description: OpenID Connect authentication via discovery metadata.
   schemas:
     ScoringRequest:
       type: object
@@ -237,11 +238,10 @@ components:
       properties:
         idDocument:
           type: string
-          description: |-
-            Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
+          description: Identification number associated to the official identity document in the country. It may contain alphanumeric characters.
           maxLength: 30
         phoneNumber:
-          $ref: "../common/CAMARA_common.yaml#/components/schemas/PhoneNumber"
+          $ref: '#/components/schemas/PhoneNumber'
         scoringType:
           type: string
           description: |-
@@ -258,13 +258,13 @@ components:
       type: object
       description: Scoring information based on the individual's profile owned by a Telco Operator.
       oneOf:
-        - $ref: "#/components/schemas/GaugeMetricResponse"
-        - $ref: "#/components/schemas/VeritasIndexResponse"
+        - $ref: '#/components/schemas/GaugeMetricResponse'
+        - $ref: '#/components/schemas/VeritasIndexResponse'
       discriminator:
         propertyName: scoringType
         mapping:
-          gaugeMetric: "#/components/schemas/GaugeMetricResponse"
-          veritasIndex: "#/components/schemas/VeritasIndexResponse"
+          gaugeMetric: '#/components/schemas/GaugeMetricResponse'
+          veritasIndex: '#/components/schemas/VeritasIndexResponse'
     GaugeMetricResponse:
       type: object
       description: Scoring information with Gauge Metric scale based on the individual's profile owned by a Telco Operator.
@@ -307,18 +307,51 @@ components:
           format: int32
           minimum: 0
           maximum: 19
+    XCorrelator:
+      type: string
+      description: Correlator string, UUID format recommended but any string matching the pattern can be used
+      pattern: ^[a-zA-Z0-9-_:;.\/<>{}]{0,256}$
+      maxLength: 256
+      example: b4333c46-49c0-4f62-80d7-f0ef930f1c46
+    PhoneNumber:
+      description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+      type: string
+      pattern: ^\+[1-9][0-9]{4,14}$
+      maxLength: 16
+      example: '+123456789'
+    ErrorInfo:
+      type: object
+      description: A structured error response providing details about a failed request, including the HTTP status code, an error code, and a human-readable message
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          format: int32
+          minimum: 100
+          maximum: 599
+          description: HTTP response status code
+        code:
+          type: string
+          maxLength: 96
+          description: A human-readable code to describe the error
+        message:
+          type: string
+          maxLength: 512
+          description: A human-readable description of what the event represents
   responses:
     InvalidArgument400:
-      description: |-
-        Problem with the client request.
+      description: Problem with the client request.
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -338,12 +371,12 @@ components:
       description: Forbidden
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -371,12 +404,12 @@ components:
         - Provided `idDocument` field is not supported. (`"code": "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED","message": "Indicated parameter idDocument is not supported"`)
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -424,12 +457,12 @@ components:
       description: Too Many Requests
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -445,3 +478,72 @@ components:
                 status: 429
                 code: TOO_MANY_REQUESTS
                 message: Rate limit reached.
+    Generic401:
+      description: Unauthorized
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorInfo'
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 401
+                  code:
+                    enum:
+                      - UNAUTHENTICATED
+          examples:
+            GENERIC_401_UNAUTHENTICATED:
+              description: Request cannot be authenticated and a new authentication is required
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials. A new authentication is required.
+    Generic404:
+      description: Not found
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorInfo'
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 404
+                  code:
+                    enum:
+                      - NOT_FOUND
+                      - IDENTIFIER_NOT_FOUND
+          examples:
+            GENERIC_404_NOT_FOUND:
+              description: Resource is not found
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: The specified resource is not found.
+            GENERIC_404_IDENTIFIER_NOT_FOUND:
+              description: Some identifier cannot be matched to a device
+              value:
+                status: 404
+                code: IDENTIFIER_NOT_FOUND
+                message: Device identifier not found.
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        $ref: '#/components/schemas/XCorrelator'
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        $ref: '#/components/schemas/XCorrelator'
