@@ -35,6 +35,8 @@ info:
                   16-17    C
                   18-19    DDD
 
+    * **idDocument**: identification number of the official identity document associated with the individual in the country (e.g. national ID card, tax identification number, or equivalent), used as an alternative or complementary identifier to `phoneNumber` to determine the subscriber whose Scoring is being requested.
+
     # API Functionality
 
     This API allows to retrieve the Scoring information of a user within the operator.
