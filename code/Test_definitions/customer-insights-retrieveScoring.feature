@@ -2,10 +2,20 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
-  #
+  # * apiRoot: API root of the server URL
+  # * Whether the Telco Operator requires idDocument to retrieve scoring, and for which test phone number(s) this applies
+  # * Whether the Telco Operator supports idDocument as an identifier, either in general or only in combination with specific scoringType value(s)
+  # * Which scoringType value(s) are supported by the Telco Operator
+  # * Whether the service is restricted to certain phone number subscription types (e.g. not available for B2B subscriptions)
   #
   # Testing assets:
   # * A phone number whose scoring can be obtained
+  # * A valid idDocument value associated to a test phone number's subscription, for which scoring can be obtained
+  # * A valid idDocument value not existing in the environment
+  # * A valid idDocument value not associated to the test phone number used in the request
+  # * A phone number for which the Telco Operator business rules require idDocument to be provided
+  # * A valid idDocument value not supported by the Telco Operator, alone or in combination with a specific scoringType value
+  # * A phone number for which the service is not applicable/available
   #
   # References to OAS spec schemas refer to schemas specified in customer-insights.yaml
 
