@@ -63,11 +63,28 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Added
 
-* N/A
+* Test feature documentation enhancements by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/90. Additional documentation for `retrieveScoring` test feature:
+  * Adds implementation indications
+  * Enhances testing assets
+* `idDocument` description improvement by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/91. Includes `idDocument` definition in `info.description`:
+  * Adds `idDocument` definition to the "Relevant Definitions and concepts" section of `info.description`, explaining it's an identity-document number used as an alternative/complementary identifier to phoneNumber
 
 ### Changed
 
-* N/A
+* Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96. Detailed updates:
+  * API Specification:
+    * `info.description` transversal sections aligment
+    * Error Responses alignment:
+      * Specific InvalidArgument400 replaced by Commom BadRequest400
+      * Common Generic401 (deprecated) replaced by Common Unauthenticated401
+      * Specific PermissionDenied403 replaced by Common PermissionDenied403
+      * Common Generic404 (deprecated) replaced by specific NotFound404 (No direct scenario/combination in CAMARA_common.yaml)
+      * Specific UnprocessableContent422 adapted (based on `CAMARA_common.yaml` guide)
+      * Specific RequestLimitReached429 replaced by Common TooManyRequests429
+  * Testing Definitions:
+    * Background: added `Given an environment at "apiRoot"` as first step
+    * `400.01`, `401.01`, `401.02`, `403.01`, `404.01` scenarios: added `And the response header "x-correlator" has same value as the request header "x-correlator"` and `And the response header "Content-Type" is "application/json"` in Then block
+    * `401.03`: added `x-correlator` response header check (already had Content-Type)
 
 ### Fixed
 
