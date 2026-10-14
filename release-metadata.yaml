@@ -1,0 +1,13 @@
+repository:
+  repository_name: CustomerInsights
+  release_tag: r3.2
+  release_type: pre-release-rc
+  release_date: null
+  src_commit_sha: 1bc625acdb97b7f466d9a7013039fe8c0aec3c96
+apis:
+- api_name: customer-insights
+  api_version: 0.3.0-rc.2
+  api_title: Customer Insights
+dependencies:
+  commonalities_release: r4.4 (0.9.0)
+  identity_consent_management_release: r4.2 (0.5.0)

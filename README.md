@@ -40,9 +40,9 @@ Sandbox API Repository to describe, develop, document, and test the CustomerInsi
 
 ### Upcoming Release Preview
 
-* Pre-release: [r3.1](https://github.com/camaraproject/CustomerInsights/releases/tag/r3.1) (release candidate)
-  * **customer-insights 0.3.0-rc.1**
-  [[YAML]](https://github.com/camaraproject/CustomerInsights/blob/r3.1/code/API_definitions/customer-insights.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.1/code/API_definitions/customer-insights.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.1/code/API_definitions/customer-insights.yaml)
+* Pre-release: [r3.2](https://github.com/camaraproject/CustomerInsights/releases/tag/r3.2) (release candidate)
+  * **customer-insights 0.3.0-rc.2**
+  [[YAML]](https://github.com/camaraproject/CustomerInsights/blob/r3.2/code/API_definitions/customer-insights.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.2/code/API_definitions/customer-insights.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.2/code/API_definitions/customer-insights.yaml)
 
 
 _The above section is automatically synchronized by CAMARA project-administration._
