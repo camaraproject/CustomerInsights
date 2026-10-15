@@ -74,7 +74,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 * Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96. Detailed updates:
   * API Specification:
     * Harmonised transversal sections in `info.description`
-    * Error Responses alignment:
+    * Error Responses alignment (no change to the returned status codes or error codes):
       * Specific InvalidArgument400 replaced by Common BadRequest400
       * Common Generic401 (deprecated) replaced by Common Unauthenticated401
       * Specific PermissionDenied403 replaced by Common PermissionDenied403
