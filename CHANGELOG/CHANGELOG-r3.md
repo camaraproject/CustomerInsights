@@ -75,7 +75,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
   * API Specification:
     * Harmonised transversal sections in `info.description`
     * Error Responses alignment:
-      * Specific InvalidArgument400 replaced by Commom BadRequest400
+      * Specific InvalidArgument400 replaced by Common BadRequest400
       * Common Generic401 (deprecated) replaced by Common Unauthenticated401
       * Specific PermissionDenied403 replaced by Common PermissionDenied403
       * Common Generic404 (deprecated) replaced by specific NotFound404 (No direct scenario/combination in CAMARA_common.yaml)
