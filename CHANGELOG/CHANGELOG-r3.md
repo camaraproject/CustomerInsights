@@ -67,7 +67,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
   * Adds implementation indications
   * Enhances testing assets
 * `idDocument` description improvement by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/91. Includes `idDocument` definition in `info.description`:
-  * Adds `idDocument` definition to the "Relevant Definitions and concepts" section of `info.description`, explaining it's an identity-document number used as an alternative/complementary identifier to phoneNumber
+  * Adds `idDocument` definition to the "Relevant Definitions and concepts" section of `info.description`, documents `idDocument` as an identity document number used as an alternative or complement to `phoneNumber`
 
 ### Changed
 
