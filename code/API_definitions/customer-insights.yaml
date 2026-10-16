@@ -87,10 +87,6 @@ info:
       - The API is invoked without `idDocument` and the field is required by the API Provider.
       - The API is invoked with a combination of `phoneNumber` and `idDocument`, considering `idDocument` is required by the API Provider, that does not point to the same subscription (i.e. the `phoneNumber` and `idDocument` provided are not related).
 
-    `404 - NOT_FOUND` is returned when the provided `idDocument` is not found.
-
-    `404 - IDENTIFIER_NOT_FOUND` is returned when the provided `phoneNumber` is not found.
-
     <!-- CAMARA:MANDATORY:additional-error-responses:BEGIN -->
 
     # Additional CAMARA error responses
