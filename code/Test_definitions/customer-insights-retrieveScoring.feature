@@ -100,8 +100,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     Given the request body is included but is not compliant with the schema at "#/components/schemas/ScoringRequest"
     When the request "retrieveScoring" is sent
     Then the response status code is 400
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
@@ -111,8 +111,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     Given the request body is not included
     When the request "retrieveScoring" is sent
     Then the response status code is 400
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
@@ -123,8 +123,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body is set to a valid request body
     When the request "retrieveScoring" is sent
     Then the response status code is 400
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
@@ -135,8 +135,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" does not comply with the OAS schema at "#/components/schemas/PhoneNumber"
     When the request "retrieveScoring" is sent
     Then the response status code is 400
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
@@ -149,8 +149,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body is set to a valid request body
     When the request "retrieveScoring" is sent
     Then the response status code is 401
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
@@ -161,8 +161,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body is set to a valid request body
     When the request "retrieveScoring" is sent
     Then the response status code is 401
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
@@ -173,8 +173,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body is set to a valid request body
     When the request "retrieveScoring" is sent
     Then the response status code is 401
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
@@ -188,8 +188,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the header "Authorization" is set to an access token without the required scope
     When the request "retrieveScoring" is sent
     Then the response status code is 403
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 403
     And the response property "$.code" is "PERMISSION_DENIED"
     And the response property "$.message" contains a user friendly text
@@ -205,8 +205,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.idDocument" is set to a valid value not existing in the environment
     When the request "retrieveScoring" is sent
     Then the response status code is 404
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 404
     And the response property "$.code" is "NOT_FOUND"
     And the response property "$.message" contains a user friendly text
@@ -218,8 +218,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" is compliant with the schema but does not identify a valid phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 404
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 404
     And the response property "$.code" is "IDENTIFIER_NOT_FOUND"
     And the response property "$.message" contains a user friendly text
@@ -232,8 +232,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.scoringType" is set to a value not supported in the environment
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.SCALE_TYPE_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
@@ -245,8 +245,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.idDocument" is set to a valid value not associated to user's phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -258,8 +258,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" is not included
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
@@ -271,8 +271,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.idDocument" is set to a valid value but not supported by Telco Operator
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
@@ -285,8 +285,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" is not included
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
@@ -304,8 +304,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.scoringType" is set to "<score_type>"
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "CUSTOMER_INSIGHTS.ID_DOCUMENT_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
@@ -323,8 +323,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the Telco Operator business rules require idDocument for the identified phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -337,8 +337,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the Telco Operator business rules require idDocument for the provided phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -352,8 +352,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the Telco Operator business rules require idDocument for the identified phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -372,8 +372,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the Telco Operator business rules require idDocument for the provided phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -389,8 +389,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" is set to a valid phone number
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "UNNECESSARY_IDENTIFIER"
     And the response property "$.message" contains a user friendly text
@@ -401,8 +401,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the request body property "$.phoneNumber" is not included
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "MISSING_IDENTIFIER"
     And the response property "$.message" contains a user friendly text
@@ -415,8 +415,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And a valid phone number, identified by the token or provided in the request body, for which the service is not applicable
     When the request "retrieveScoring" is sent
     Then the response status code is 422
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 422
     And the response property "$.code" is "SERVICE_NOT_APPLICABLE"
     And the response property "$.message" contains a user friendly text
@@ -432,8 +432,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the threshold of requests has been reached
     When the request "retrieveScoring" is sent
     Then the response status code is 429
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 429
     And the response property "$.code" is "TOO_MANY_REQUESTS"
     And the response property "$.message" contains a user friendly text
