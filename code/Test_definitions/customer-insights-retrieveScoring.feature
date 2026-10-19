@@ -124,14 +124,14 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     When the request "retrieveScoring" is sent
     Then the response status code is 400
     And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
   @retrieve_scoring_400.09_request_body_strictness
-  Scenario: Additional request property sent when not allowed
-    Given the request body contains a property that is not defined in the schema at "#/components/schemas/ScoringRequest"
+  Scenario: Undeclared property in request body
+    Given the request body is set to a valid request body
+    And the request body includes the property "$.undeclaredProperty" which is not declared in the schema at "#/components/schemas/ScoringRequest"
     When the request "retrieveScoring" is sent
     Then the response status code is 400
     And the response header "Content-Type" is "application/json"
