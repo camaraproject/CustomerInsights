@@ -129,6 +129,17 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
+  @retrieve_scoring_400.09_request_body_strictness
+  Scenario: Additional request property sent when not allowed
+    Given the request body contains a property that is not defined in the schema at "#/components/schemas/ScoringRequest"
+    When the request "retrieveScoring" is sent
+    Then the response status code is 400
+    And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
+    And the response property "$.status" is 400
+    And the response property "$.code" is "INVALID_ARGUMENT"
+    And the response property "$.message" contains a user friendly text
+
   @retrieve_scoring_C02.01_phone_number_not_schema_compliant
   Scenario: Phone number value does not comply with the schema
     Given the header "Authorization" is set to a valid access token which does not identify a single phone number
