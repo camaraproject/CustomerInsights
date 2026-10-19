@@ -85,7 +85,8 @@ info:
 
     `404 - NOT_FOUND`
 
-    This error code is returned when `idDocument` is required by the API Provider and the provided `idDocument` cannot be found.
+    This error code is returned when `idDocument` is supported by the API Provider and the provided `idDocument` cannot be found.
+
     `422 - SERVICE_NOT_APPLICABLE`
 
     This error code is used when the service cannot be provided. Applicable scenarios include, but are not limited to, the following:
