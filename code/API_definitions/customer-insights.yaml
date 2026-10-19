@@ -77,16 +77,15 @@ info:
 
     # Additional Information on Error scenarios
 
-    This section provides valuable information about the scope of some exceptions in order to provide support for the API implementation.
+    This section provides important information about the scope of certain exceptions to support the API implementation.
 
     `404 - IDENTIFIER_NOT_FOUND`
 
-    This error code is returned when the provided `phoneNumber` is not found.
+    This error code is returned when the provided `phoneNumber` cannot be found.
 
     `404 - NOT_FOUND`
 
-    This error code is returned when the provided `idDocument` is not found.
-
+    This error code is returned when `idDocument` is required by the API Provider and the provided `idDocument` cannot be found.
     `422 - SERVICE_NOT_APPLICABLE`
 
     This error code is used when the service cannot be provided. Applicable scenarios include, but are not limited to, the following:
