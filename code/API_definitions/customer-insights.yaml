@@ -93,7 +93,7 @@ info:
       - The API is invoked for a subscription, identified via access token or phoneNumber, that is not supported or not commercially allowed by the API Provider.
       - The API is invoked for a valid subscription, identified via access token or phoneNumber, but the service cannot be provided for that specific subscription. For instance, this can be the case when the subscription has not enough historical data to provide a reliable Scoring result.
       - The API is invoked without `idDocument` and the field is required by the API Provider.
-      - The API is invoked with a combination of `phoneNumber` and `idDocument`, considering `idDocument` is required by the API Provider, that does not point to the same subscription (i.e. the `phoneNumber` and `idDocument` provided are not related).
+      - The API is invoked with a combination of `phoneNumber` and `idDocument`, considering `idDocument` is supported by the API Provider, that does not point to the same subscription (i.e. the `phoneNumber` and `idDocument` provided are not related).
 
     <!-- CAMARA:MANDATORY:additional-error-responses:BEGIN -->
 

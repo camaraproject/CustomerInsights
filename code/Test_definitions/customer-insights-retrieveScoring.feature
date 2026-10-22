@@ -210,8 +210,8 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
   @retrieve_scoring_404.01_idDocument_not_found
   Scenario: idDocument not found
     # To test this, a 3-legged access token is needed, just because if not it triggers test "@retrieve_scoring_C02.04_missing_phone_number"
-    # Scenario applicable for a Telco Operator that requires `idDocument` for scoring retrieval.
-    # In case `idDocument` is not a required field for the Telco Operator, applicable scenarios are "@retrieve_scoring_422.03_id_document_not_supported_three_legged" and "@retrieve_scoring_422.04_id_document_not_supported_two_legged".
+    # Scenario applicable for a Telco Operator that supports `idDocument` for scoring retrieval.
+    # In case `idDocument` is not supported by the Telco Operator, applicable scenarios are "@retrieve_scoring_422.03_id_document_not_supported_three_legged" and "@retrieve_scoring_422.04_id_document_not_supported_two_legged".
     Given the header "Authorization" is set to a valid access token identifying a phone number
     And the request body property "$.idDocument" is set to a valid value not existing in the environment
     When the request "retrieveScoring" is sent
