@@ -1,4 +1,4 @@
-Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
+Feature: CAMARA Customer Insights API, v0.3.0-rc.2 - Operation retrieveScoring
   # Input to be provided by the implementation to the tester
   #
   # Implementation indications:
@@ -21,7 +21,7 @@ Feature: CAMARA Customer Insights API, vwip - Operation retrieveScoring
 
   Background: Common retrieveScoring setup
     Given an environment at "apiRoot"
-    And the resource "/customer-insights/vwip/scoring/retrieve"
+    And the resource "/customer-insights/v0.3rc2/scoring/retrieve"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
