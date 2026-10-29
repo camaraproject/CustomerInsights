@@ -2,7 +2,7 @@ repository:
   repository_name: CustomerInsights
   release_tag: r3.2
   release_type: pre-release-rc
-  release_date: null
+  release_date: '2026-10-29T14:19:07Z'
   src_commit_sha: 4aa3c7472fccc53e535cbd6d7ee1280a3a96e849
 apis:
 - api_name: customer-insights
