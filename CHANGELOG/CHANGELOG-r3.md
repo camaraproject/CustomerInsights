@@ -101,7 +101,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 * Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Amendments in test definitions:
   * Fix test scenario name `@retrieve_scoring_400.02_invalid_x-correlator` to `@retrieve_scoring_400.06_invalid_x-correlator` to be fully aligned with [Commonalities Artifact Template](https://github.com/camaraproject/Commonalities/blob/r4.4/artifacts/testing/sample-service-template.feature#L233)
   * Response headers steps are aligned to have the same order in all tests: first `Content-Type` check, then `x-correlator` check
-* Error Response definitions aligment with Commonalities r4.4 components by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/103. Fixes several misaligments with Commonalities r4.4 components:
+* Error Response definitions alignment with Commonalities r4.4 components by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/103. Fixes several misalignments with Commonalities r4.4 components:
   * The `UnprocessableContent422` description is aligned with both Commonalities and Local defined examples
   * Use applicable example keys `GENERIC_422_MISSING_IDENTIFIER_PHONE_NUMBER` and `GENERIC_422_UNNECESSARY_IDENTIFIER_PHONE_NUMBER` for `MISSING_IDENTIFIER` and `UNNECESSARY_IDENTIFIER` examples respectively
   * Rename local `NotFound404` response to `RetrieveScoringNotFound404` to not overlap with Commonalities `NotFound404` response component
