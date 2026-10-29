@@ -2,6 +2,7 @@
 
 <!-- TOC:START -->
 ## Table of Contents
+- [r3.2](#r32)
 - [r3.1](#r31)
 <!-- TOC:END -->
 
@@ -13,6 +14,84 @@ The below sections record the changes for each API version in each release as fo
 * for the first release-candidate, all changes since the last public release
 * for subsequent release-candidate(s), only the delta to the previous release-candidate
 * for a public release, the consolidated changes since the previous public release
+
+# r3.2
+
+## Release Notes
+
+This release candidate contains the definition and documentation of
+* customer-insights 0.3.0-rc.2
+
+The API definition(s) are based on
+* Commonalities r4.4 (0.9.0)
+* Identity and Consent Management r4.2 (0.5.0)
+
+## customer-insights 0.3.0-rc.2
+
+**customer-insights 0.3.0-rc.2 is a release-candidate version of this API.**
+
+Changes documented below are compared to version 0.3.0-rc.1.
+
+- API definition **with inline documentation**:
+  - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.2/code/API_definitions/customer-insights.yaml&nocors)
+  - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.2/code/API_definitions/customer-insights.yaml)
+  - OpenAPI [YAML spec file](https://github.com/camaraproject/CustomerInsights/blob/r3.2/code/API_definitions/customer-insights.yaml)
+
+### Breaking changes
+
+* N/A
+
+### Added
+
+* Test feature documentation enhancements by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/90. Additional documentation for `retrieveScoring` test feature:
+  * Adds implementation indications
+  * Enhances testing assets
+* `idDocument` description improvement by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/91. Includes `idDocument` definition in `info.description`:
+  * Adds `idDocument` definition to the "Relevant Definitions and concepts" section of `info.description`, documents `idDocument` as an identity document number used as an alternative or complement to `phoneNumber`
+* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Enhancements in test definitions:
+  * Adds test scenario `@retrieve_scoring_400.01_schema_not_compliant` to cover Request Body schema compliant validation
+  * Adds test scenario `@retrieve_scoring_400.09_request_body_strictness` to cover Request Body Strictness guideline
+  * Adds the `x-correlator` and `Content-Type` response header checks to scenarios: `400.06` (only `Content-Type` check), `C02.01–C02.05`, `422.01–422.10` and `429.01`
+* Document 404 Error Codes in `info.description` by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/104. Includes `404` error scenarios semantic scope in `info.description`:
+  * Adds the scope for `404 - IDENTIFIER_NOT_FOUND` and `404 - NOT_FOUND` scenarios to the "Additional Information on Error scenarios" section of `info.description`
+
+### Changed
+
+* Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96. Detailed updates:
+  * API Specification:
+    * Harmonised transversal sections in `info.description`
+    * Error Responses alignment (no change to the returned status codes or error codes):
+      * Specific InvalidArgument400 replaced by Common BadRequest400
+      * Common Generic401 (deprecated) replaced by Common Unauthenticated401
+      * Specific PermissionDenied403 replaced by Common PermissionDenied403
+      * Common Generic404 (deprecated) replaced by specific NotFound404 (No direct scenario/combination in CAMARA_common.yaml)
+      * Specific UnprocessableContent422 adapted (based on `CAMARA_common.yaml` guide)
+      * Specific RequestLimitReached429 replaced by Common TooManyRequests429
+  * Test Definitions:
+    * Background: added `Given an environment at "apiRoot"` as first step
+    * `400.01`, `401.01`, `401.02`, `403.01`, `404.01` scenarios: added `And the response header "x-correlator" has same value as the request header "x-correlator"` and `And the response header "Content-Type" is "application/json"` in Then block
+    * `401.03`: added `x-correlator` response header check (already had Content-Type)
+
+### Fixed
+
+* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Amendments in test definitions:
+  * Fix test scenario name `@retrieve_scoring_400.02_invalid_x-correlator` to `@retrieve_scoring_400.06_invalid_x-correlator` to be fully aligned with [Commonalities Artifact Template](https://github.com/camaraproject/Commonalities/blob/r4.4/artifacts/testing/sample-service-template.feature#L233)
+  * Response headers steps are aligned to have the same order in all tests: first `Content-Type` check, then `x-correlator` check
+* Error Response definitions alignment with Commonalities r4.4 components by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/103. Fixes several misalignments with Commonalities r4.4 components:
+  * The `UnprocessableContent422` description is aligned with both Commonalities and Local defined examples
+  * Use applicable example keys `GENERIC_422_MISSING_IDENTIFIER_PHONE_NUMBER` and `GENERIC_422_UNNECESSARY_IDENTIFIER_PHONE_NUMBER` for `MISSING_IDENTIFIER` and `UNNECESSARY_IDENTIFIER` examples respectively
+  * Rename local `NotFound404` response to `RetrieveScoringNotFound404` to not overlap with Commonalities `NotFound404` response component
+* Fix inconsistencies in `idDocument` Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/106. Fixes two inconsistencies in `idDocument` concept scenarios:
+  * API Specification:
+    * `info.description`: Fix wording in `422` scenario where both `phoneNumber` and `idDocument` are provided and they are not associated. Replaces "`idDocument` is `required`" by "`idDocument` is `supported`"
+  * Test Definitions:
+    * `@retrieve_scoring_404.01_idDocument_not_found`: Fix the wording annotations for the test scenario, indicating that `idDocument` is `supported` by Telco Operator instead of `required`, for alignment with API specification. 
+
+### Removed
+
+* N/A
+
+**Full Changelog**: https://github.com/camaraproject/CustomerInsights/compare/r3.1...r3.2
 
 # r3.1
 
