@@ -98,7 +98,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Fixed
 
-* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Ammendments in test definitions:
+* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Amendments in test definitions:
   * Fix test scenario name `@retrieve_scoring_400.02_invalid_x-correlator` to `@retrieve_scoring_400.06_invalid_x-correlator` to be fully aligned with [Commonalities Artifact Template](https://github.com/camaraproject/Commonalities/blob/r4.4/artifacts/testing/sample-service-template.feature#L233)
   * Response headers steps are aligned to have the same order in all tests: first `Content-Type` check, then `x-correlator` check
 * Error Response definitions aligment with Commonalities r4.4 components by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/103. Fixes several misaligments with Commonalities r4.4 components:
