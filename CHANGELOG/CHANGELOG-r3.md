@@ -83,10 +83,9 @@ Changes documented below are compared to version 0.2.0.
 
 ### Breaking changes
 
-* idDocument Management Error Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/65. Two exceptions are removed:
-  * `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED`
-  * `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS`
-  * Their scope is covered by existing `422 - SERVICE_NOT_APPLICABLE` exception
+* idDocument Management Error Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/65 and https://github.com/camaraproject/CustomerInsights/pull/106. The error codes `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED` and `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS` are removed. The corresponding scenarios now return `422 - SERVICE_NOT_APPLICABLE`:
+  * `idDocument` is required by the API Provider but not provided (previously `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED`)
+  * `idDocument` is supported by the API Provider, and the provided `phoneNumber` and `idDocument` do not point to the same subscription (previously `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS`)
 
 ### Added
 
