@@ -114,16 +114,16 @@ Changes documented below are compared to version 0.2.0.
   * `ScoringResponse` refactored into `oneOf` `GaugeMetricResponse` / `VeritasIndexResponse` with discriminator `scoringType`; `scoringValue` is `int32` and bounded per scale (300-850 for `gaugeMetric`, 0-19 for `veritasIndex`). The response payload is unchanged
   * "Request body strictness" section added to `info.description`: request bodies with properties not declared in the specification are rejected with `400 INVALID_ARGUMENT`
 * Testing alignment with Commonalities Spring26 artifacts by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/83
-* Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96. Detailed updates:
+* Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96 and https://github.com/camaraproject/CustomerInsights/pull/103. Detailed updates:
   * API Specification:
-    * Harmonised transversal sections in `info.description`
-    * Error Responses alignment (no change to the returned status codes or error codes):
-      * Specific InvalidArgument400 replaced by Common BadRequest400
-      * Common Generic401 (deprecated) replaced by Common Unauthenticated401
-      * Specific PermissionDenied403 replaced by Common PermissionDenied403
-      * Common Generic404 (deprecated) replaced by specific NotFound404 (No direct scenario/combination in CAMARA_common.yaml)
-      * Specific UnprocessableContent422 adapted (based on `CAMARA_common.yaml` guide)
-      * Specific RequestLimitReached429 replaced by Common TooManyRequests429
+    * `info.description` sections aligned with the Commonalities r4.4 `info-description-templates.yaml`
+    * Error Responses alignment (no change to the returned status codes or error codes, apart from the removal listed under Breaking changes):
+      * Generic400 replaced by Common BadRequest400
+      * Generic401 replaced by Common Unauthenticated401
+      * Generic403 replaced by Common PermissionDenied403
+      * Generic404 replaced by specific RetrieveScoringNotFound404 (No direct scenario/combination in CAMARA_common.yaml)
+      * Generic422 replaced by specific UnprocessableContent422, with description and examples aligned with `CAMARA_common.yaml`
+      * Generic429 replaced by Common TooManyRequests429
   * Test Definitions:
     * Background: added `Given an environment at "apiRoot"` as first step
     * `400.01`, `401.01`, `401.02`, `403.01`, `404.01` scenarios: added `And the response header "x-correlator" has same value as the request header "x-correlator"` and `And the response header "Content-Type" is "application/json"` in Then block
