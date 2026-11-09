@@ -110,7 +110,9 @@ Changes documented below are compared to version 0.2.0.
   * `idDocument` is required by the API Provider but not provided (previously `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED`)
   * `idDocument` is supported by the API Provider, and the provided `phoneNumber` and `idDocument` do not point to the same subscription (previously `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS`)
   * Involved tests are also updated
-* Update API specification to local CAMARA_common.yaml references by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/75
+* Update API specification to local CAMARA_common.yaml references by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/75. Detailed updates:
+  * `ScoringResponse` refactored into `oneOf` `GaugeMetricResponse` / `VeritasIndexResponse` with discriminator `scoringType`; `scoringValue` is `int32` and bounded per scale (300-850 for `gaugeMetric`, 0-19 for `veritasIndex`). The response payload is unchanged
+  * "Request body strictness" section added to `info.description`: request bodies with properties not declared in the specification are rejected with `400 INVALID_ARGUMENT`
 * Testing alignment with Commonalities Spring26 artifacts by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/83
 * Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96. Detailed updates:
   * API Specification:
