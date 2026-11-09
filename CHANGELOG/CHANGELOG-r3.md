@@ -133,16 +133,7 @@ Changes documented below are compared to version 0.2.0.
 
 * Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Amendments in test definitions:
   * Fix test scenario name `@retrieve_scoring_400.02_invalid_x-correlator` to `@retrieve_scoring_400.06_invalid_x-correlator` to be fully aligned with [Commonalities Artifact Template](https://github.com/camaraproject/Commonalities/blob/r4.4/artifacts/testing/sample-service-template.feature#L233)
-  * Response headers steps are aligned to have the same order in all tests: first `Content-Type` check, then `x-correlator` check
-* Error Response definitions alignment with Commonalities r4.4 components by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/103. Fixes several misalignments with Commonalities r4.4 components:
-  * The `UnprocessableContent422` description is aligned with both Commonalities and Local defined examples
-  * Use applicable example keys `GENERIC_422_MISSING_IDENTIFIER_PHONE_NUMBER` and `GENERIC_422_UNNECESSARY_IDENTIFIER_PHONE_NUMBER` for `MISSING_IDENTIFIER` and `UNNECESSARY_IDENTIFIER` examples respectively
-  * Rename local `NotFound404` response to `RetrieveScoringNotFound404` to not overlap with Commonalities `NotFound404` response component
-* Fix inconsistencies in `idDocument` Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/106. Fixes two inconsistencies in `idDocument` concept scenarios:
-  * API Specification:
-    * `info.description`: Fix wording in `422` scenario where both `phoneNumber` and `idDocument` are provided and they are not associated. Replaces "`idDocument` is `required`" by "`idDocument` is `supported`"
-  * Test Definitions:
-    * `@retrieve_scoring_404.01_idDocument_not_found`: Fix the wording annotations for the test scenario, indicating that `idDocument` is `supported` by Telco Operator instead of `required`, for alignment with API specification.
+  * Renumber `@retrieve_scoring_400.01_no_request_body` to `@retrieve_scoring_400.02_no_request_body`, as `400.01` is now used by `@retrieve_scoring_400.01_schema_not_compliant`
 
 ### Removed
 
