@@ -2,6 +2,7 @@
 
 <!-- TOC:START -->
 ## Table of Contents
+- **[r3.3](#r33)**
 - [r3.2](#r32)
 - [r3.1](#r31)
 <!-- TOC:END -->
@@ -14,6 +15,88 @@ The below sections record the changes for each API version in each release as fo
 * for the first release-candidate, all changes since the last public release
 * for subsequent release-candidate(s), only the delta to the previous release-candidate
 * for a public release, the consolidated changes since the previous public release
+
+# r3.3
+
+## Release Notes
+
+This public release contains the definition and documentation of
+* customer-insights 0.3.0
+
+The API definition(s) are based on
+* Commonalities r4.4 (0.9.0)
+* Identity and Consent Management r4.2 (0.5.0)
+
+## customer-insights 0.3.0
+
+**customer-insights 0.3.0 is an initial public version of this API.**
+
+Changes documented below are compared to version 0.2.0.
+
+- API definition **with inline documentation**:
+  - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.3/code/API_definitions/customer-insights.yaml&nocors)
+  - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/CustomerInsights/r3.3/code/API_definitions/customer-insights.yaml)
+  - OpenAPI [YAML spec file](https://github.com/camaraproject/CustomerInsights/blob/r3.3/code/API_definitions/customer-insights.yaml)
+
+### Breaking changes
+
+* idDocument Management Error Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/65 and https://github.com/camaraproject/CustomerInsights/pull/106. The error codes `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED` and `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS` are removed. The corresponding scenarios now return `422 - SERVICE_NOT_APPLICABLE`:
+  * `idDocument` is required by the API Provider but not provided (previously `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED`)
+  * `idDocument` is supported by the API Provider, and the provided `phoneNumber` and `idDocument` do not point to the same subscription (previously `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS`)
+
+### Added
+
+* Test feature documentation enhancements by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/90. Additional documentation for `retrieveScoring` test feature:
+  * Adds implementation indications
+  * Enhances testing assets
+* `idDocument` description improvement by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/91. Includes `idDocument` definition in `info.description`:
+  * Adds `idDocument` definition to the "Relevant Definitions and concepts" section of `info.description`, documents `idDocument` as an identity document number used as an alternative or complement to `phoneNumber`
+* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Enhancements in test definitions:
+  * Adds test scenario `@retrieve_scoring_400.01_schema_not_compliant` to cover Request Body schema compliant validation
+  * Adds test scenario `@retrieve_scoring_400.09_request_body_strictness` to cover Request Body Strictness guideline
+  * Adds the `x-correlator` and `Content-Type` response header checks to scenarios: `400.06` (only `Content-Type` check), `C02.01–C02.05`, `422.01–422.10` and `429.01`
+* Document 404 Error Codes in `info.description` by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/104. Includes `404` error scenarios semantic scope in `info.description`:
+  * Adds the scope for `404 - IDENTIFIER_NOT_FOUND` and `404 - NOT_FOUND` scenarios to the "Additional Information on Error scenarios" section of `info.description`
+
+### Changed
+
+* Apply CAMARA Commonalities OWASP recommendations by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/67. Detailed updates:
+  * `x-correlator`, `phoneNumber` and `ErrorInfo` are aligned with Commonalities definitions
+  * `idDocument` is set to have a maxLength of 30 characters
+* idDocument Management Error Scenarios by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/65 and https://github.com/camaraproject/CustomerInsights/pull/106. The following scenarios now return `422 - SERVICE_NOT_APPLICABLE` instead of an API-specific error code:
+  * `idDocument` is required by the API Provider but not provided (previously `422 - CUSTOMER_INSIGHTS.ID_DOCUMENT_REQUIRED`)
+  * `idDocument` is supported by the API Provider, and the provided `phoneNumber` and `idDocument` do not point to the same subscription (previously `422 - CUSTOMER_INSIGHTS.INVALID_IDENTIFIERS`)
+  * Involved tests are also updated
+* Update API specification to local CAMARA_common.yaml references by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/75. Detailed updates:
+  * `ScoringResponse` refactored into `oneOf` `GaugeMetricResponse` / `VeritasIndexResponse` with discriminator `scoringType`; `scoringValue` is `int32` and bounded per scale (300-850 for `gaugeMetric`, 0-19 for `veritasIndex`). The response payload is unchanged
+  * "Request body strictness" section added to `info.description`: request bodies with properties not declared in the specification are rejected with `400 INVALID_ARGUMENT`
+* Testing alignment with Commonalities Spring26 artifacts by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/83
+* Customer Insights v0.3.0 alignment with Commonalities r4.4 by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/96 and https://github.com/camaraproject/CustomerInsights/pull/103. Detailed updates:
+  * API Specification:
+    * `info.description` sections aligned with the Commonalities r4.4 `info-description-templates.yaml`
+    * Error Responses alignment (no change to the returned status codes or error codes, apart from the removal listed under Breaking changes):
+      * Generic400 replaced by Common BadRequest400
+      * Generic401 replaced by Common Unauthenticated401
+      * Generic403 replaced by Common PermissionDenied403
+      * Generic404 replaced by specific RetrieveScoringNotFound404 (No direct scenario/combination in CAMARA_common.yaml)
+      * Generic422 replaced by specific UnprocessableContent422, with description and examples aligned with `CAMARA_common.yaml`
+      * Generic429 replaced by Common TooManyRequests429
+  * Test Definitions:
+    * Background: added `Given an environment at "apiRoot"` as first step
+    * `400.01`, `401.01`, `401.02`, `403.01`, `404.01` scenarios: added `And the response header "x-correlator" has same value as the request header "x-correlator"` and `And the response header "Content-Type" is "application/json"` in Then block
+    * `401.03`: added `x-correlator` response header check (already had Content-Type)
+
+### Fixed
+
+* Test: Added Request Body Strict Scenario and complete Response Headers by @PedroDiez in https://github.com/camaraproject/CustomerInsights/pull/102. Amendments in test definitions:
+  * Fix test scenario name `@retrieve_scoring_400.02_invalid_x-correlator` to `@retrieve_scoring_400.06_invalid_x-correlator` to be fully aligned with [Commonalities Artifact Template](https://github.com/camaraproject/Commonalities/blob/r4.4/artifacts/testing/sample-service-template.feature#L233)
+  * Renumber `@retrieve_scoring_400.01_no_request_body` to `@retrieve_scoring_400.02_no_request_body`, as `400.01` is now used by `@retrieve_scoring_400.01_schema_not_compliant`
+
+### Removed
+
+* N/A
+
+**Full Changelog**: https://github.com/camaraproject/CustomerInsights/compare/r2.2...r3.3
 
 # r3.2
 
